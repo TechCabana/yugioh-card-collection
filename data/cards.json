@@ -5790,6 +5790,36 @@
     "type": "monster"
   },
   {
+    "atk": 900,
+    "attribute": "Dark",
+    "cardType": "Spellcaster / Normal",
+    "def": 1400,
+    "id": "recsx3yTfid9DuE4E",
+    "image": "assets/cards/16392422.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Toon Masked Sorcerer",
+    "passcode": "16392422",
+    "rarity": "common",
+    "serial": "DB2-EN120",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "900"
+      },
+      {
+        "label": "DEF",
+        "value": "1400"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 1800,
     "attribute": "Dark",
     "cardType": "Fiend / Normal",
