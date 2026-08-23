@@ -6240,6 +6240,36 @@
     "type": "monster"
   },
   {
+    "atk": 1350,
+    "attribute": "Dark",
+    "cardType": "Fiend / Effect",
+    "def": 1400,
+    "id": "recwjyZwIg0aEnuNX",
+    "image": "assets/cards/93889755.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Crass Clown",
+    "passcode": "93889755",
+    "rarity": "short_print",
+    "serial": "MRD-078",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1350"
+      },
+      {
+        "label": "DEF",
+        "value": "1400"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 1300,
     "attribute": "Earth",
     "cardType": "Dinosaur / Normal",
