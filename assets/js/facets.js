@@ -20,6 +20,7 @@ import { RARITY_ORDER } from './filters.js';
 /** Human labels for the rarity keys stored in the data. */
 const RARITY_LABELS = {
     common: 'Common',
+    short_print: 'Short Print',
     rare: 'Rare',
     super: 'Super Rare',
     ultra: 'Ultra Rare',

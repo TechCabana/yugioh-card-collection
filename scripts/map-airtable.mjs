@@ -29,6 +29,7 @@ const TYPE_MAP = {
 /** Airtable Rarity display value to the lowercase key the filters use. */
 const RARITY_MAP = {
     'Common': 'common',
+    'Short Print': 'short_print',
     'Rare': 'rare',
     'Super Rare': 'super',
     'Ultra Rare': 'ultra',

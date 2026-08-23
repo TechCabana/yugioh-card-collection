@@ -27,6 +27,7 @@ import { cardFrame, frameLabel, FRAME_KEYS } from './frames.js';
  */
 export const RARITY_LABELS = {
     common: 'Common',
+    short_print: 'Short Print',
     rare: 'Rare',
     super: 'Super Rare',
     ultra: 'Ultra Rare',

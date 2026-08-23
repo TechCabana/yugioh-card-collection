@@ -385,7 +385,7 @@ describe('rarity vocabulary stays in step', () => {
     // Three places define rarity: the Airtable options, RARITY_ORDER, and
     // RARITY_LABELS. Drift between them makes cards vanish under a filter.
     const airtableRarities = [
-        'common', 'rare', 'super', 'ultra', 'secret',
+        'common', 'short_print', 'rare', 'super', 'ultra', 'secret',
         'ultimate', 'collector', 'ghost', 'prismatic', 'starlight'
     ];
 
@@ -401,8 +401,9 @@ describe('rarity vocabulary stays in step', () => {
         });
     });
 
-    it('keeps common as the lowest tier so "rare or better" excludes it', () => {
+    it('keeps common and short print below "rare or better"', () => {
         expect(RARITY_ORDER[0]).toBe('common');
-        expect(RARITY_ORDER.indexOf('rare')).toBe(1);
+        expect(RARITY_ORDER.indexOf('short_print')).toBe(1);
+        expect(RARITY_ORDER.indexOf('rare')).toBe(2);
     });
 });

@@ -20,6 +20,7 @@ import { matchesSelection } from './facets.js';
  */
 export const RARITY_ORDER = [
     'common',
+    'short_print',
     'rare',
     'super',
     'ultra',
