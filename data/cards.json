@@ -1,5 +1,35 @@
 [
   {
+    "atk": 1100,
+    "attribute": "Light",
+    "cardType": "Winged Beast / Normal",
+    "def": 1400,
+    "id": "rec0cjpjXRvG1sgKt",
+    "image": "assets/cards/2863439.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Fiend Reflection #2",
+    "passcode": "2863439",
+    "rarity": "common",
+    "serial": "LOB-021",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1100"
+      },
+      {
+        "label": "DEF",
+        "value": "1400"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 450,
     "attribute": "Earth",
     "cardType": "Insect / Effect",
@@ -54,6 +84,36 @@
       {
         "label": "Level",
         "value": "2"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1800,
+    "attribute": "Dark",
+    "cardType": "Warrior / Normal",
+    "def": 1500,
+    "id": "rec10d36jK3OZ9qRU",
+    "image": "assets/cards/11321183.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Dark Blade",
+    "passcode": "11321183",
+    "rarity": "common",
+    "serial": "SYE-015",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1800"
+      },
+      {
+        "label": "DEF",
+        "value": "1500"
+      },
+      {
+        "label": "Level",
+        "value": "4"
       }
     ],
     "summonType": null,
@@ -120,6 +180,126 @@
     "type": "monster"
   },
   {
+    "atk": 1450,
+    "attribute": "Earth",
+    "cardType": "Fiend / Normal",
+    "def": 1700,
+    "id": "rec1vVnJMy3zWClzP",
+    "image": "assets/cards/5434080.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Headless Knight",
+    "passcode": "5434080",
+    "rarity": "common",
+    "serial": "LON-054",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1450"
+      },
+      {
+        "label": "DEF",
+        "value": "1700"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1400,
+    "attribute": "Fire",
+    "cardType": "Spellcaster / Effect",
+    "def": 1700,
+    "id": "rec20LxfKwixqDNTW",
+    "image": "assets/cards/21051146.jpg",
+    "isFirstEdition": true,
+    "level": 4,
+    "name": "Blast Magician",
+    "passcode": "21051146",
+    "rarity": "common",
+    "serial": "SD6-EN014",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1400"
+      },
+      {
+        "label": "DEF",
+        "value": "1700"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1700,
+    "attribute": "Earth",
+    "cardType": "Plant / Effect",
+    "def": 1000,
+    "id": "rec2V1DQag2CHLEYd",
+    "image": "assets/cards/46571052.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Vampiric Orchis",
+    "passcode": "46571052",
+    "rarity": "common",
+    "serial": "MFC-014",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1700"
+      },
+      {
+        "label": "DEF",
+        "value": "1000"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 2200,
+    "attribute": "Dark",
+    "cardType": "Fiend / Effect",
+    "def": 0,
+    "id": "rec37jbjvzr47i30A",
+    "image": "assets/cards/73698349.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Giant Orc",
+    "passcode": "73698349",
+    "rarity": "common",
+    "serial": "MFC-012",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "2200"
+      },
+      {
+        "label": "DEF",
+        "value": "0"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 100,
     "attribute": "Dark",
     "cardType": "Fiend / Effect",
@@ -170,6 +350,36 @@
       {
         "label": "DEF",
         "value": "1200"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1800,
+    "attribute": "Wind",
+    "cardType": "Dinosaur / Effect",
+    "def": 800,
+    "id": "rec3sTZhPg5Uipvdq",
+    "image": "assets/cards/58071123.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Oxygeddon",
+    "passcode": "58071123",
+    "rarity": "common",
+    "serial": "EEN-EN014",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1800"
+      },
+      {
+        "label": "DEF",
+        "value": "800"
       },
       {
         "label": "Level",
@@ -330,6 +540,66 @@
     "type": "monster"
   },
   {
+    "atk": 1100,
+    "attribute": "Earth",
+    "cardType": "Warrior / Normal",
+    "def": 1100,
+    "id": "rec6NXSk19ytTwIej",
+    "image": "assets/cards/44287299.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Masaki the Legendary Swordsman",
+    "passcode": "44287299",
+    "rarity": "common",
+    "serial": "SDJ-007",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1100"
+      },
+      {
+        "label": "DEF",
+        "value": "1100"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1700,
+    "attribute": "Dark",
+    "cardType": "Zombie / Effect",
+    "def": 1650,
+    "id": "rec6k8zAZ0LFEZ28X",
+    "image": "assets/cards/44436472.jpg",
+    "isFirstEdition": true,
+    "level": 4,
+    "name": "Double Coston",
+    "passcode": "44436472",
+    "rarity": "common",
+    "serial": "SD2-EN011",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1700"
+      },
+      {
+        "label": "DEF",
+        "value": "1650"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 750,
     "attribute": "Water",
     "cardType": "Aqua / Effect",
@@ -360,6 +630,36 @@
     "type": "monster"
   },
   {
+    "atk": 1600,
+    "attribute": "Earth",
+    "cardType": "Beast / Effect",
+    "def": 1200,
+    "id": "rec7tNl4vZDw0MkLy",
+    "image": "assets/cards/38479725.jpg",
+    "isFirstEdition": true,
+    "level": 4,
+    "name": "The Trojan Horse",
+    "passcode": "38479725",
+    "rarity": "common",
+    "serial": "SOD-EN029",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1600"
+      },
+      {
+        "label": "DEF",
+        "value": "1200"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 1000,
     "attribute": "Earth",
     "cardType": "Warrior / Effect",
@@ -376,6 +676,96 @@
       {
         "label": "ATK",
         "value": "1000"
+      },
+      {
+        "label": "DEF",
+        "value": "1500"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1600,
+    "attribute": "Earth",
+    "cardType": "Machine / Normal",
+    "def": 1500,
+    "id": "rec8gRcjQTu2WQqlR",
+    "image": "assets/cards/2311603.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Overdrive",
+    "passcode": "2311603",
+    "rarity": "common",
+    "serial": "PSV-060",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1600"
+      },
+      {
+        "label": "DEF",
+        "value": "1500"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1600,
+    "attribute": "Water",
+    "cardType": "Aqua / Effect",
+    "def": 1200,
+    "id": "rec91aVjy7090oGAY",
+    "image": "assets/cards/40916023.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Aqua Spirit",
+    "passcode": "40916023",
+    "rarity": "common",
+    "serial": "LON-068",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1600"
+      },
+      {
+        "label": "DEF",
+        "value": "1200"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1600,
+    "attribute": "Fire",
+    "cardType": "Aqua / Normal",
+    "def": 1500,
+    "id": "rec950qRVJwOQN7i9",
+    "image": "assets/cards/46534755.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Fire Kraken",
+    "passcode": "46534755",
+    "rarity": "common",
+    "serial": "MRL-014",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1600"
       },
       {
         "label": "DEF",
@@ -450,6 +840,36 @@
     "type": "token"
   },
   {
+    "atk": 1600,
+    "attribute": "Light",
+    "cardType": "Dragon / Effect",
+    "def": 600,
+    "id": "recAts4EzyYygvk1E",
+    "image": "assets/cards/15960641.jpg",
+    "isFirstEdition": true,
+    "level": 4,
+    "name": "Mirage Dragon",
+    "passcode": "15960641",
+    "rarity": "common",
+    "serial": "RDS-EN027",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1600"
+      },
+      {
+        "label": "DEF",
+        "value": "600"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 1200,
     "attribute": "Wind",
     "cardType": "Dragon / Normal",
@@ -510,6 +930,156 @@
     "type": "monster"
   },
   {
+    "atk": 1700,
+    "attribute": "Wind",
+    "cardType": "Winged Beast / Normal",
+    "def": 1500,
+    "id": "recBNHLdn9DcHSWkZ",
+    "image": "assets/cards/20624263.jpg",
+    "isFirstEdition": false,
+    "level": 5,
+    "name": "Peacock",
+    "passcode": "20624263",
+    "rarity": "common",
+    "serial": "MRL-011",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1700"
+      },
+      {
+        "label": "DEF",
+        "value": "1500"
+      },
+      {
+        "label": "Level",
+        "value": "5"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1800,
+    "attribute": "Earth",
+    "cardType": "Warrior / Effect",
+    "def": 1600,
+    "id": "recC0V5GpjwKHa7Bj",
+    "image": "assets/cards/423705.jpg",
+    "isFirstEdition": true,
+    "level": 4,
+    "name": "Gearfried the Iron Knight",
+    "passcode": "423705",
+    "rarity": "common",
+    "serial": "SD5-EN005",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1800"
+      },
+      {
+        "label": "DEF",
+        "value": "1600"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1500,
+    "attribute": "Earth",
+    "cardType": "Reptile / Normal",
+    "def": 1200,
+    "id": "recCDyeEqydxMtjYv",
+    "image": "assets/cards/15480588.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Armored Lizard",
+    "passcode": "15480588",
+    "rarity": "common",
+    "serial": "MRD-005",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1500"
+      },
+      {
+        "label": "DEF",
+        "value": "1200"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1100,
+    "attribute": "Fire",
+    "cardType": "Pyro / Effect",
+    "def": 1900,
+    "id": "recCfQz7fw6dKRn4g",
+    "image": "assets/cards/74823665.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Inferno",
+    "passcode": "74823665",
+    "rarity": "common",
+    "serial": "IOC-019",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1100"
+      },
+      {
+        "label": "DEF",
+        "value": "1900"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1800,
+    "attribute": "Earth",
+    "cardType": "Beast-Warrior / Normal",
+    "def": 1600,
+    "id": "recDFpzA8uDKsjr6J",
+    "image": "assets/cards/26378150.jpg",
+    "isFirstEdition": false,
+    "level": 5,
+    "name": "Rude Kaiser",
+    "passcode": "26378150",
+    "rarity": "common",
+    "serial": "SDK-027",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1800"
+      },
+      {
+        "label": "DEF",
+        "value": "1600"
+      },
+      {
+        "label": "Level",
+        "value": "5"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 1200,
     "attribute": "Earth",
     "cardType": "Beast / Normal",
@@ -534,6 +1104,36 @@
       {
         "label": "Level",
         "value": "3"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1600,
+    "attribute": "Dark",
+    "cardType": "Spellcaster / Effect",
+    "def": 1000,
+    "id": "recDz9BTdH45zLA26",
+    "image": "assets/cards/71413901.jpg",
+    "isFirstEdition": true,
+    "level": 4,
+    "name": "Breaker the Magical Warrior",
+    "passcode": "71413901",
+    "rarity": "common",
+    "serial": "SD6-EN009",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1600"
+      },
+      {
+        "label": "DEF",
+        "value": "1000"
+      },
+      {
+        "label": "Level",
+        "value": "4"
       }
     ],
     "summonType": null,
@@ -630,6 +1230,66 @@
     "type": "monster"
   },
   {
+    "atk": 2400,
+    "attribute": "Wind",
+    "cardType": "Dragon / Effect",
+    "def": 1700,
+    "id": "recFNOIQffsPLohiO",
+    "image": "assets/cards/46384672.jpg",
+    "isFirstEdition": false,
+    "level": 5,
+    "name": "Armed Dragon LV5",
+    "passcode": "46384672",
+    "rarity": "common",
+    "serial": "SD1-EN006",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "2400"
+      },
+      {
+        "label": "DEF",
+        "value": "1700"
+      },
+      {
+        "label": "Level",
+        "value": "5"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1500,
+    "attribute": "Light",
+    "cardType": "Spellcaster / Effect",
+    "def": 1200,
+    "id": "recFS8AYAIxSZdWTr",
+    "image": "assets/cards/87557188.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "The Stern Mystic",
+    "passcode": "87557188",
+    "rarity": "common",
+    "serial": "SDY-033",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1500"
+      },
+      {
+        "label": "DEF",
+        "value": "1200"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 1200,
     "attribute": "Earth",
     "cardType": "Beast-Warrior / Normal",
@@ -720,6 +1380,36 @@
     "type": "monster"
   },
   {
+    "atk": 1200,
+    "attribute": "Water",
+    "cardType": "Spellcaster / Normal",
+    "def": 2000,
+    "id": "recGNOHjTnwCmFlhv",
+    "image": "assets/cards/85639257.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Aqua Madoor",
+    "passcode": "85639257",
+    "rarity": "common",
+    "serial": "SDP-008",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1200"
+      },
+      {
+        "label": "DEF",
+        "value": "2000"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 500,
     "attribute": "Fire",
     "cardType": "Warrior / Effect",
@@ -750,6 +1440,36 @@
     "type": "monster"
   },
   {
+    "atk": 800,
+    "attribute": "Water",
+    "cardType": "Warrior / Effect",
+    "def": 1200,
+    "id": "recHBrQdN1gRxwpad",
+    "image": "assets/cards/79979666.jpg",
+    "isFirstEdition": true,
+    "level": 4,
+    "name": "Elemental HERO Bubbleman",
+    "passcode": "79979666",
+    "rarity": "ultimate",
+    "serial": "CRV-EN014",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "800"
+      },
+      {
+        "label": "DEF",
+        "value": "1200"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 0,
     "attribute": "Dark",
     "cardType": "Fiend / Effect",
@@ -774,6 +1494,66 @@
       {
         "label": "Level",
         "value": "1"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1800,
+    "attribute": "Dark",
+    "cardType": "Zombie / Effect",
+    "def": 1500,
+    "id": "recHY7Df8XXqBwtgp",
+    "image": "assets/cards/70821187.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Regenerating Mummy",
+    "passcode": "70821187",
+    "rarity": "common",
+    "serial": "AST-079",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1800"
+      },
+      {
+        "label": "DEF",
+        "value": "1500"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 800,
+    "attribute": "Light",
+    "cardType": "Fairy / Normal",
+    "def": 2000,
+    "id": "recHYEsBwMluJPYuB",
+    "image": "assets/cards/80770678.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Spirit of the Harp",
+    "passcode": "80770678",
+    "rarity": "common",
+    "serial": "SDJ-004",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "800"
+      },
+      {
+        "label": "DEF",
+        "value": "2000"
+      },
+      {
+        "label": "Level",
+        "value": "4"
       }
     ],
     "summonType": null,
@@ -900,6 +1680,36 @@
     "type": "monster"
   },
   {
+    "atk": 1700,
+    "attribute": "Earth",
+    "cardType": "Zombie / Effect",
+    "def": 2000,
+    "id": "recIhAIsPnhlRrhKR",
+    "image": "assets/cards/78266168.jpg",
+    "isFirstEdition": false,
+    "level": 5,
+    "name": "Giant Axe Mummy",
+    "passcode": "78266168",
+    "rarity": "common",
+    "serial": "PGD-023",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1700"
+      },
+      {
+        "label": "DEF",
+        "value": "2000"
+      },
+      {
+        "label": "Level",
+        "value": "5"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 700,
     "attribute": "Earth",
     "cardType": "Warrior / Effect",
@@ -930,6 +1740,66 @@
     "type": "monster"
   },
   {
+    "atk": 2500,
+    "attribute": "Dark",
+    "cardType": "Fiend / Normal",
+    "def": 1200,
+    "id": "recItFiInxX59SD64",
+    "image": "assets/cards/91842653.jpg",
+    "isFirstEdition": false,
+    "level": 6,
+    "name": "Toon Summoned Skull",
+    "passcode": "91842653",
+    "rarity": "common",
+    "serial": "SDP-021",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "2500"
+      },
+      {
+        "label": "DEF",
+        "value": "1200"
+      },
+      {
+        "label": "Level",
+        "value": "6"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1500,
+    "attribute": "Earth",
+    "cardType": "Warrior / Effect",
+    "def": 1600,
+    "id": "recJ0bJdQ3QTYwtcS",
+    "image": "assets/cards/86188410.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Elemental HERO Wildheart",
+    "passcode": "86188410",
+    "rarity": "common",
+    "serial": "EEN-EN008",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1500"
+      },
+      {
+        "label": "DEF",
+        "value": "1600"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 1550,
     "attribute": "Wind",
     "cardType": "Winged Beast / Normal",
@@ -954,6 +1824,126 @@
       {
         "label": "Level",
         "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 2500,
+    "attribute": "Dark",
+    "cardType": "Fiend / Normal",
+    "def": 1200,
+    "id": "recJWK0T64a3I4APO",
+    "image": "assets/cards/70781055.jpg",
+    "isFirstEdition": false,
+    "level": 6,
+    "name": "Summoned Skull",
+    "passcode": "70781055",
+    "rarity": "common",
+    "serial": "SDY-004",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "2500"
+      },
+      {
+        "label": "DEF",
+        "value": "1200"
+      },
+      {
+        "label": "Level",
+        "value": "6"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 0,
+    "attribute": "Dark",
+    "cardType": "Fiend / Effect",
+    "def": 0,
+    "id": "recK7Rr0opCS3k53V",
+    "image": "assets/cards/87917187.jpg",
+    "isFirstEdition": true,
+    "level": 5,
+    "name": "Dark Summoning Beast",
+    "passcode": "87917187",
+    "rarity": "common",
+    "serial": "SDSA-EN005",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "0"
+      },
+      {
+        "label": "DEF",
+        "value": "0"
+      },
+      {
+        "label": "Level",
+        "value": "5"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1600,
+    "attribute": "Light",
+    "cardType": "Fairy / Normal",
+    "def": 1800,
+    "id": "recKBZBiCDBtO9AN2",
+    "image": "assets/cards/87303357.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Shining Abyss",
+    "passcode": "87303357",
+    "rarity": "common",
+    "serial": "LON-009",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1600"
+      },
+      {
+        "label": "DEF",
+        "value": "1800"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 2000,
+    "attribute": "Dark",
+    "cardType": "Warrior / Normal",
+    "def": 1600,
+    "id": "recKUZAaHNyweKSPD",
+    "image": "assets/cards/50005633.jpg",
+    "isFirstEdition": false,
+    "level": 6,
+    "name": "Swordstalker",
+    "passcode": "50005633",
+    "rarity": "common",
+    "serial": "SDK-025",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "2000"
+      },
+      {
+        "label": "DEF",
+        "value": "1600"
+      },
+      {
+        "label": "Level",
+        "value": "6"
       }
     ],
     "summonType": null,
@@ -1080,6 +2070,66 @@
     "type": "monster"
   },
   {
+    "atk": 2400,
+    "attribute": "Wind",
+    "cardType": "Dragon / Normal",
+    "def": 1400,
+    "id": "recLFBDWZmpOeaEvc",
+    "image": "assets/cards/17658803.jpg",
+    "isFirstEdition": false,
+    "level": 6,
+    "name": "Luster Dragon #2",
+    "passcode": "17658803",
+    "rarity": "common",
+    "serial": "SKE-014",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "2400"
+      },
+      {
+        "label": "DEF",
+        "value": "1400"
+      },
+      {
+        "label": "Level",
+        "value": "6"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 0,
+    "attribute": "Dark",
+    "cardType": "Fiend / Effect",
+    "def": 0,
+    "id": "recLttWnLLnNTPV8G",
+    "image": "assets/cards/47942531.jpg",
+    "isFirstEdition": true,
+    "level": 6,
+    "name": "Great Maju Garzett",
+    "passcode": "47942531",
+    "rarity": "rare",
+    "serial": "DCR-063",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "0"
+      },
+      {
+        "label": "DEF",
+        "value": "0"
+      },
+      {
+        "label": "Level",
+        "value": "6"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 1300,
     "attribute": "Earth",
     "cardType": "Rock / Normal",
@@ -1104,6 +2154,66 @@
       {
         "label": "Level",
         "value": "3"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 100,
+    "attribute": "Earth",
+    "cardType": "Rock / Effect",
+    "def": -1,
+    "id": "recMjecoCwEZg6F3x",
+    "image": "assets/cards/45871897.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Lost Guardian",
+    "passcode": "45871897",
+    "rarity": "common",
+    "serial": "TLM-EN011",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "100"
+      },
+      {
+        "label": "DEF",
+        "value": "-1"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 300,
+    "attribute": "Earth",
+    "cardType": "Plant / Effect",
+    "def": 2000,
+    "id": "recMkkoHlpX7x7dfa",
+    "image": "assets/cards/12965761.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Des Dendle",
+    "passcode": "12965761",
+    "rarity": "common",
+    "serial": "DR1-EN070",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "300"
+      },
+      {
+        "label": "DEF",
+        "value": "2000"
+      },
+      {
+        "label": "Level",
+        "value": "4"
       }
     ],
     "summonType": null,
@@ -1160,6 +2270,96 @@
       {
         "label": "DEF",
         "value": "1200"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1000,
+    "attribute": "Earth",
+    "cardType": "Warrior / Effect",
+    "def": 1000,
+    "id": "recOIQURP0JbVmFt6",
+    "image": "assets/cards/74131780.jpg",
+    "isFirstEdition": true,
+    "level": 4,
+    "name": "Exiled Force",
+    "passcode": "74131780",
+    "rarity": "common",
+    "serial": "SD5-EN010",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1000"
+      },
+      {
+        "label": "DEF",
+        "value": "1000"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1400,
+    "attribute": "Light",
+    "cardType": "Fairy / Effect",
+    "def": 800,
+    "id": "recORnI4ZRyHliS0m",
+    "image": "assets/cards/95956346.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Shining Angel",
+    "passcode": "95956346",
+    "rarity": "common",
+    "serial": "DB1-EN052",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1400"
+      },
+      {
+        "label": "DEF",
+        "value": "800"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 0,
+    "attribute": "Dark",
+    "cardType": "Fiend / Effect",
+    "def": 2000,
+    "id": "recOb9ouq0ckxQh2n",
+    "image": "assets/cards/11448373.jpg",
+    "isFirstEdition": true,
+    "level": 4,
+    "name": "Grave Protector",
+    "passcode": "11448373",
+    "rarity": "rare",
+    "serial": "AST-077",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "0"
+      },
+      {
+        "label": "DEF",
+        "value": "2000"
       },
       {
         "label": "Level",
@@ -1230,6 +2430,36 @@
     "type": "monster"
   },
   {
+    "atk": 500,
+    "attribute": "Fire",
+    "cardType": "Machine / Normal",
+    "def": 2500,
+    "id": "recPFbg1JoehKtFru",
+    "image": "assets/cards/35322812.jpg",
+    "isFirstEdition": false,
+    "level": 5,
+    "name": "Woodborg Inpachi",
+    "passcode": "35322812",
+    "rarity": "common",
+    "serial": "RDS-EN001",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "500"
+      },
+      {
+        "label": "DEF",
+        "value": "2500"
+      },
+      {
+        "label": "Level",
+        "value": "5"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 1000,
     "attribute": "Dark",
     "cardType": "Fiend / Normal",
@@ -1254,6 +2484,36 @@
       {
         "label": "Level",
         "value": "3"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 2400,
+    "attribute": "Dark",
+    "cardType": "Zombie / Effect",
+    "def": 2000,
+    "id": "recPcdhviY3ySLmCB",
+    "image": "assets/cards/57281778.jpg",
+    "isFirstEdition": false,
+    "level": 6,
+    "name": "Ryu Kokki",
+    "passcode": "57281778",
+    "rarity": "common",
+    "serial": "IOC-090",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "2400"
+      },
+      {
+        "label": "DEF",
+        "value": "2000"
+      },
+      {
+        "label": "Level",
+        "value": "6"
       }
     ],
     "summonType": null,
@@ -1410,6 +2670,36 @@
     "type": "monster"
   },
   {
+    "atk": 2400,
+    "attribute": "Light",
+    "cardType": "Spellcaster / Effect",
+    "def": 1900,
+    "id": "recQxTib3fZ2KYbgF",
+    "image": "assets/cards/72630549.jpg",
+    "isFirstEdition": true,
+    "level": 6,
+    "name": "Chaos Command Magician",
+    "passcode": "72630549",
+    "rarity": "common",
+    "serial": "SD6-EN008",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "2400"
+      },
+      {
+        "label": "DEF",
+        "value": "1900"
+      },
+      {
+        "label": "Level",
+        "value": "6"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 1200,
     "attribute": "Earth",
     "cardType": "Beast-Warrior / Normal",
@@ -1434,6 +2724,66 @@
       {
         "label": "Level",
         "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1600,
+    "attribute": "Water",
+    "cardType": "Warrior / Effect",
+    "def": 1800,
+    "id": "recRDS2WBHqBlHIvK",
+    "image": "assets/cards/24128274.jpg",
+    "isFirstEdition": false,
+    "level": 5,
+    "name": "Deepsea Warrior",
+    "passcode": "24128274",
+    "rarity": "common",
+    "serial": "PSV-079",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1600"
+      },
+      {
+        "label": "DEF",
+        "value": "1800"
+      },
+      {
+        "label": "Level",
+        "value": "5"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1800,
+    "attribute": "Dark",
+    "cardType": "Machine / Normal",
+    "def": 1700,
+    "id": "recRF86H0OGOmR4LD",
+    "image": "assets/cards/87511987.jpg",
+    "isFirstEdition": false,
+    "level": 5,
+    "name": "Spikebot",
+    "passcode": "87511987",
+    "rarity": "common",
+    "serial": "PSV-081",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1800"
+      },
+      {
+        "label": "DEF",
+        "value": "1700"
+      },
+      {
+        "label": "Level",
+        "value": "5"
       }
     ],
     "summonType": null,
@@ -1590,6 +2940,36 @@
     "type": "monster"
   },
   {
+    "atk": 1600,
+    "attribute": "Water",
+    "cardType": "Aqua / Normal",
+    "def": 1400,
+    "id": "recSeFbqZpMmC9MeN",
+    "image": "assets/cards/74637266.jpg",
+    "isFirstEdition": false,
+    "level": 5,
+    "name": "Octoberser",
+    "passcode": "74637266",
+    "rarity": "common",
+    "serial": "MRL-052",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1600"
+      },
+      {
+        "label": "DEF",
+        "value": "1400"
+      },
+      {
+        "label": "Level",
+        "value": "5"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 900,
     "attribute": "Dark",
     "cardType": "Fiend / Effect",
@@ -1644,6 +3024,36 @@
       {
         "label": "Level",
         "value": "3"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1100,
+    "attribute": "Dark",
+    "cardType": "Spellcaster / Normal",
+    "def": 1400,
+    "id": "recSzzx08BoVNTMfV",
+    "image": "assets/cards/34853266.jpg",
+    "isFirstEdition": true,
+    "level": 4,
+    "name": "Tsukuyomi",
+    "passcode": "34853266",
+    "rarity": "common",
+    "serial": "SD6-EN011",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1100"
+      },
+      {
+        "label": "DEF",
+        "value": "1400"
+      },
+      {
+        "label": "Level",
+        "value": "4"
       }
     ],
     "summonType": null,
@@ -1740,6 +3150,36 @@
     "type": "monster"
   },
   {
+    "atk": 1800,
+    "attribute": "Earth",
+    "cardType": "Beast / Normal",
+    "def": 1900,
+    "id": "recTg1SVcwEzisKNz",
+    "image": "assets/cards/14015067.jpg",
+    "isFirstEdition": false,
+    "level": 6,
+    "name": "Ancient One of the Deep Forest",
+    "passcode": "14015067",
+    "rarity": "common",
+    "serial": "MRL-018",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1800"
+      },
+      {
+        "label": "DEF",
+        "value": "1900"
+      },
+      {
+        "label": "Level",
+        "value": "6"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 1100,
     "attribute": "Earth",
     "cardType": "Rock / Effect",
@@ -1764,6 +3204,156 @@
       {
         "label": "Level",
         "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1850,
+    "attribute": "Fire",
+    "cardType": "Pyro / Normal",
+    "def": 0,
+    "id": "recU5JSUSz5HCzncs",
+    "image": "assets/cards/5464695.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Blazing Inpachi",
+    "passcode": "5464695",
+    "rarity": "common",
+    "serial": "IOC-061",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1850"
+      },
+      {
+        "label": "DEF",
+        "value": "0"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 800,
+    "attribute": "Light",
+    "cardType": "Spellcaster / Normal",
+    "def": 2000,
+    "id": "recUGLl0R0HQIm0Hg",
+    "image": "assets/cards/15025844.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Mystical Elf",
+    "passcode": "15025844",
+    "rarity": "common",
+    "serial": "SDY-001",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "800"
+      },
+      {
+        "label": "DEF",
+        "value": "2000"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1400,
+    "attribute": "Water",
+    "cardType": "Aqua / Normal",
+    "def": 1500,
+    "id": "recUixAOpIbOCqzOT",
+    "image": "assets/cards/65458948.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Toon Mermaid",
+    "passcode": "65458948",
+    "rarity": "common",
+    "serial": "SDP-023",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1400"
+      },
+      {
+        "label": "DEF",
+        "value": "1500"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 800,
+    "attribute": "Earth",
+    "cardType": "Warrior / Normal",
+    "def": 2000,
+    "id": "recUr1v30RgEYHvsb",
+    "image": "assets/cards/84327329.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Elemental HERO Clayman",
+    "passcode": "84327329",
+    "rarity": "common",
+    "serial": "TLM-EN003",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "800"
+      },
+      {
+        "label": "DEF",
+        "value": "2000"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 2200,
+    "attribute": "Fire",
+    "cardType": "Pyro / Normal",
+    "def": 1700,
+    "id": "recV4FNSNqKX8QQxH",
+    "image": "assets/cards/78984772.jpg",
+    "isFirstEdition": false,
+    "level": 6,
+    "name": "Twin-Headed Fire Dragon",
+    "passcode": "78984772",
+    "rarity": "common",
+    "serial": "PSV-042",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "2200"
+      },
+      {
+        "label": "DEF",
+        "value": "1700"
+      },
+      {
+        "label": "Level",
+        "value": "6"
       }
     ],
     "summonType": null,
@@ -1830,6 +3420,36 @@
     "type": "monster"
   },
   {
+    "atk": 2200,
+    "attribute": "Fire",
+    "cardType": "Dragon / Normal",
+    "def": 2600,
+    "id": "recVf0rSEZ4A5ciST",
+    "image": "assets/cards/38369349.jpg",
+    "isFirstEdition": false,
+    "level": 7,
+    "name": "Manga Ryu-Ran",
+    "passcode": "38369349",
+    "rarity": "common",
+    "serial": "SDP-022",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "2200"
+      },
+      {
+        "label": "DEF",
+        "value": "2600"
+      },
+      {
+        "label": "Level",
+        "value": "7"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 500,
     "attribute": "Dark",
     "cardType": "Machine / Effect",
@@ -1884,6 +3504,36 @@
       {
         "label": "Level",
         "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1200,
+    "attribute": "Dark",
+    "cardType": "Spellcaster / Normal",
+    "def": 2200,
+    "id": "recWXnE6gKU3axQJl",
+    "image": "assets/cards/28546905.jpg",
+    "isFirstEdition": false,
+    "level": 5,
+    "name": "Illusionist Faceless Mage",
+    "passcode": "28546905",
+    "rarity": "common",
+    "serial": "MRD-068",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1200"
+      },
+      {
+        "label": "DEF",
+        "value": "2200"
+      },
+      {
+        "label": "Level",
+        "value": "5"
       }
     ],
     "summonType": null,
@@ -2010,6 +3660,36 @@
     "type": "monster"
   },
   {
+    "atk": 1200,
+    "attribute": "Dark",
+    "cardType": "Machine / Normal",
+    "def": 1700,
+    "id": "recZfaAHPMvysE8m6",
+    "image": "assets/cards/4035199.jpg",
+    "isFirstEdition": false,
+    "level": 5,
+    "name": "Shapesnatch",
+    "passcode": "4035199",
+    "rarity": "common",
+    "serial": "PGD-002",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1200"
+      },
+      {
+        "label": "DEF",
+        "value": "1700"
+      },
+      {
+        "label": "Level",
+        "value": "5"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 1100,
     "attribute": "Dark",
     "cardType": "Fiend / Effect",
@@ -2026,6 +3706,36 @@
       {
         "label": "ATK",
         "value": "1100"
+      },
+      {
+        "label": "DEF",
+        "value": "800"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1000,
+    "attribute": "Fire",
+    "cardType": "Winged Beast / Effect",
+    "def": 800,
+    "id": "recZwcc4UWR8XYGGm",
+    "image": "assets/cards/87473172.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Firebird",
+    "passcode": "87473172",
+    "rarity": "common",
+    "serial": "FET-EN032",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1000"
       },
       {
         "label": "DEF",
@@ -2090,6 +3800,66 @@
       {
         "label": "DEF",
         "value": "1400"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1800,
+    "attribute": "Water",
+    "cardType": "Sea Serpent / Normal",
+    "def": 1500,
+    "id": "recaXnrvImm0TquFg",
+    "image": "assets/cards/42071342.jpg",
+    "isFirstEdition": true,
+    "level": 4,
+    "name": "Sea Serpent Warrior of Darkness",
+    "passcode": "42071342",
+    "rarity": "common",
+    "serial": "SD4-EN003",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1800"
+      },
+      {
+        "label": "DEF",
+        "value": "1500"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1700,
+    "attribute": "Fire",
+    "cardType": "Pyro / Normal",
+    "def": 1150,
+    "id": "recagR42zBU1bqHmw",
+    "image": "assets/cards/5388481.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Darkfire Soldier #1",
+    "passcode": "5388481",
+    "rarity": "common",
+    "serial": "SDJ-010",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1700"
+      },
+      {
+        "label": "DEF",
+        "value": "1150"
       },
       {
         "label": "Level",
@@ -2310,6 +4080,36 @@
     "type": "monster"
   },
   {
+    "atk": 1900,
+    "attribute": "Earth",
+    "cardType": "Rock / Effect",
+    "def": 1300,
+    "id": "recd3DFmFt31Nvw3i",
+    "image": "assets/cards/47606319.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Gigantes",
+    "passcode": "47606319",
+    "rarity": "common",
+    "serial": "IOC-021",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1900"
+      },
+      {
+        "label": "DEF",
+        "value": "1300"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 300,
     "attribute": "Earth",
     "cardType": "Warrior / Effect",
@@ -2430,6 +4230,36 @@
     "type": "monster"
   },
   {
+    "atk": 500,
+    "attribute": "Earth",
+    "cardType": "Beast / Normal",
+    "def": 2000,
+    "id": "receNghLNwVzobhlZ",
+    "image": "assets/cards/549481.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Prevent Rat",
+    "passcode": "549481",
+    "rarity": "common",
+    "serial": "MRD-084",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "500"
+      },
+      {
+        "label": "DEF",
+        "value": "2000"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 0,
     "attribute": "Dark",
     "cardType": "Fiend / Effect",
@@ -2454,6 +4284,36 @@
       {
         "label": "Level",
         "value": "1"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1400,
+    "attribute": "Light",
+    "cardType": "Spellcaster / Effect",
+    "def": 1400,
+    "id": "recf5mmW3U3OfrWx0",
+    "image": "assets/cards/55424270.jpg",
+    "isFirstEdition": true,
+    "level": 4,
+    "name": "Mythical Beast Cerberus",
+    "passcode": "55424270",
+    "rarity": "common",
+    "serial": "SD6-EN002",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1400"
+      },
+      {
+        "label": "DEF",
+        "value": "1400"
+      },
+      {
+        "label": "Level",
+        "value": "4"
       }
     ],
     "summonType": null,
@@ -2510,6 +4370,66 @@
       {
         "label": "DEF",
         "value": "1000"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1700,
+    "attribute": "Light",
+    "cardType": "Spellcaster / Normal",
+    "def": 1000,
+    "id": "recg1fOy10SGm1lLR",
+    "image": "assets/cards/50930991.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Neo the Magic Swordsman",
+    "passcode": "50930991",
+    "rarity": "common",
+    "serial": "SDY-035",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1700"
+      },
+      {
+        "label": "DEF",
+        "value": "1000"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1600,
+    "attribute": "Light",
+    "cardType": "Warrior / Normal",
+    "def": 1400,
+    "id": "recg4Zowyb4rrKxay",
+    "image": "assets/cards/20721929.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Elemental HERO Sparkman",
+    "passcode": "20721929",
+    "rarity": "common",
+    "serial": "TLM-EN004",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1600"
+      },
+      {
+        "label": "DEF",
+        "value": "1400"
       },
       {
         "label": "Level",
@@ -2610,6 +4530,36 @@
     "type": "monster"
   },
   {
+    "atk": 2200,
+    "attribute": "Wind",
+    "cardType": "Insect / Normal",
+    "def": 1400,
+    "id": "recgsRnRHnqUWZdL3",
+    "image": "assets/cards/58818411.jpg",
+    "isFirstEdition": false,
+    "level": 6,
+    "name": "Empress Mantis",
+    "passcode": "58818411",
+    "rarity": "common",
+    "serial": "LON-040",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "2200"
+      },
+      {
+        "label": "DEF",
+        "value": "1400"
+      },
+      {
+        "label": "Level",
+        "value": "6"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 1200,
     "attribute": "Dark",
     "cardType": "Spellcaster / Effect",
@@ -2664,6 +4614,36 @@
       {
         "label": "Level",
         "value": "3"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1400,
+    "attribute": "Earth",
+    "cardType": "Warrior / Normal",
+    "def": 1200,
+    "id": "rechx80FpErNpalYI",
+    "image": "assets/cards/91152258.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Celtic Guardian",
+    "passcode": "91152258",
+    "rarity": "common",
+    "serial": "SDY-009",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1400"
+      },
+      {
+        "label": "DEF",
+        "value": "1200"
+      },
+      {
+        "label": "Level",
+        "value": "4"
       }
     ],
     "summonType": null,
@@ -2730,6 +4710,36 @@
     "type": "monster"
   },
   {
+    "atk": 1600,
+    "attribute": "Dark",
+    "cardType": "Beast-Warrior / Effect",
+    "def": 600,
+    "id": "reciLnzuUPnaQIxhR",
+    "image": "assets/cards/88975532.jpg",
+    "isFirstEdition": true,
+    "level": 4,
+    "name": "Pitch-Black Warwolf",
+    "passcode": "88975532",
+    "rarity": "common",
+    "serial": "RDS-EN026",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1600"
+      },
+      {
+        "label": "DEF",
+        "value": "600"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 1200,
     "attribute": "Earth",
     "cardType": "Beast-Warrior / Normal",
@@ -2750,6 +4760,36 @@
       {
         "label": "DEF",
         "value": "1400"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1500,
+    "attribute": "Earth",
+    "cardType": "Warrior / Normal",
+    "def": 1200,
+    "id": "recjQXMyTvHPpJ0YG",
+    "image": "assets/cards/1184620.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Kojikocy",
+    "passcode": "1184620",
+    "rarity": "common",
+    "serial": "SDK-009",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1500"
+      },
+      {
+        "label": "DEF",
+        "value": "1200"
       },
       {
         "label": "Level",
@@ -2844,6 +4884,36 @@
       {
         "label": "Level",
         "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 2000,
+    "attribute": "Earth",
+    "cardType": "Machine / Effect",
+    "def": 2000,
+    "id": "recjrC0RkjMJZQmFN",
+    "image": "assets/cards/10509340.jpg",
+    "isFirstEdition": false,
+    "level": 6,
+    "name": "Ancient Gear Beast",
+    "passcode": "10509340",
+    "rarity": "ultimate",
+    "serial": "TLM-EN007",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "2000"
+      },
+      {
+        "label": "DEF",
+        "value": "2000"
+      },
+      {
+        "label": "Level",
+        "value": "6"
       }
     ],
     "summonType": null,
@@ -2964,6 +5034,66 @@
       {
         "label": "Level",
         "value": "3"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1600,
+    "attribute": "Dark",
+    "cardType": "Machine / Effect",
+    "def": 1100,
+    "id": "recmB1x8lHvdT4xpp",
+    "image": "assets/cards/99050989.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Drillago",
+    "passcode": "99050989",
+    "rarity": "rare",
+    "serial": "IOC-026",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1600"
+      },
+      {
+        "label": "DEF",
+        "value": "1100"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 2300,
+    "attribute": "Dark",
+    "cardType": "Spellcaster / Effect",
+    "def": 2000,
+    "id": "recmW7CiCSj6P6jnP",
+    "image": "assets/cards/9596126.jpg",
+    "isFirstEdition": true,
+    "level": 6,
+    "name": "Chaos Sorcerer",
+    "passcode": "9596126",
+    "rarity": "common",
+    "serial": "SD6-EN012",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "2300"
+      },
+      {
+        "label": "DEF",
+        "value": "2000"
+      },
+      {
+        "label": "Level",
+        "value": "6"
       }
     ],
     "summonType": null,
@@ -3120,6 +5250,66 @@
     "type": "monster"
   },
   {
+    "atk": 1200,
+    "attribute": "Dark",
+    "cardType": "Fiend / Effect",
+    "def": 1000,
+    "id": "recnLFHGNjCuksMip",
+    "image": "assets/cards/16768387.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Big Eye",
+    "passcode": "16768387",
+    "rarity": "common",
+    "serial": "SDJ-018",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1200"
+      },
+      {
+        "label": "DEF",
+        "value": "1000"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1200,
+    "attribute": "Wind",
+    "cardType": "Dragon / Normal",
+    "def": 1000,
+    "id": "recnQJa3ftqdeQ3Bm",
+    "image": "assets/cards/55444629.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Lesser Dragon",
+    "passcode": "55444629",
+    "rarity": "common",
+    "serial": "LOB-113",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1200"
+      },
+      {
+        "label": "DEF",
+        "value": "1000"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 1300,
     "attribute": "Earth",
     "cardType": "Beast / Normal",
@@ -3140,6 +5330,36 @@
       {
         "label": "DEF",
         "value": "1550"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1500,
+    "attribute": "Dark",
+    "cardType": "Spellcaster / Effect",
+    "def": 1500,
+    "id": "recnuBCf3k4lbkt3A",
+    "image": "assets/cards/25262697.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Gravekeeper's Assailant",
+    "passcode": "25262697",
+    "rarity": "common",
+    "serial": "DR1-EN015",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1500"
+      },
+      {
+        "label": "DEF",
+        "value": "1500"
       },
       {
         "label": "Level",
@@ -3300,6 +5520,36 @@
     "type": "monster"
   },
   {
+    "atk": 1700,
+    "attribute": "Earth",
+    "cardType": "Warrior / Normal",
+    "def": 1200,
+    "id": "recpMQ1OiLPeBfbFV",
+    "image": "assets/cards/48365709.jpg",
+    "isFirstEdition": false,
+    "level": 5,
+    "name": "Ansatsu",
+    "passcode": "48365709",
+    "rarity": "common",
+    "serial": "SDY-016",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1700"
+      },
+      {
+        "label": "DEF",
+        "value": "1200"
+      },
+      {
+        "label": "Level",
+        "value": "5"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 100,
     "attribute": "Fire",
     "cardType": "Pyro / Normal",
@@ -3324,6 +5574,126 @@
       {
         "label": "Level",
         "value": "1"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 2200,
+    "attribute": "Earth",
+    "cardType": "Warrior / Normal",
+    "def": 1500,
+    "id": "recqI6j2zFYoEQU0C",
+    "image": "assets/cards/30113682.jpg",
+    "isFirstEdition": false,
+    "level": 6,
+    "name": "Judge Man",
+    "passcode": "30113682",
+    "rarity": "common",
+    "serial": "SDK-007",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "2200"
+      },
+      {
+        "label": "DEF",
+        "value": "1500"
+      },
+      {
+        "label": "Level",
+        "value": "6"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1100,
+    "attribute": "Dark",
+    "cardType": "Spellcaster / Effect",
+    "def": 1200,
+    "id": "recqwLnicbZUVdZqa",
+    "image": "assets/cards/78010363.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Witch of the Black Forest",
+    "passcode": "78010363",
+    "rarity": "common",
+    "serial": "SDP-014",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1100"
+      },
+      {
+        "label": "DEF",
+        "value": "1200"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1700,
+    "attribute": "Dark",
+    "cardType": "Machine / Effect",
+    "def": 1700,
+    "id": "recqySsGsG9EXlsKx",
+    "image": "assets/cards/98162242.jpg",
+    "isFirstEdition": false,
+    "level": 5,
+    "name": "Needle Burrower",
+    "passcode": "98162242",
+    "rarity": "super",
+    "serial": "AST-020",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1700"
+      },
+      {
+        "label": "DEF",
+        "value": "1700"
+      },
+      {
+        "label": "Level",
+        "value": "5"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1600,
+    "attribute": "Earth",
+    "cardType": "Machine / Normal",
+    "def": 1900,
+    "id": "recr5wwOQNDZp7WHA",
+    "image": "assets/cards/97923414.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Inpachi",
+    "passcode": "97923414",
+    "rarity": "common",
+    "serial": "PGD-055",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1600"
+      },
+      {
+        "label": "DEF",
+        "value": "1900"
+      },
+      {
+        "label": "Level",
+        "value": "4"
       }
     ],
     "summonType": null,
@@ -3360,6 +5730,36 @@
     "type": "monster"
   },
   {
+    "atk": 2000,
+    "attribute": "Dark",
+    "cardType": "Dragon / Normal",
+    "def": 1500,
+    "id": "recr7J1tQ8mRsP2vl",
+    "image": "assets/cards/28279543.jpg",
+    "isFirstEdition": false,
+    "level": 5,
+    "name": "Curse of Dragon",
+    "passcode": "28279543",
+    "rarity": "common",
+    "serial": "SDY-008",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "2000"
+      },
+      {
+        "label": "DEF",
+        "value": "1500"
+      },
+      {
+        "label": "Level",
+        "value": "5"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 1600,
     "attribute": "Dark",
     "cardType": "Fiend / Normal",
@@ -3380,6 +5780,36 @@
       {
         "label": "DEF",
         "value": "1200"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1800,
+    "attribute": "Dark",
+    "cardType": "Fiend / Normal",
+    "def": 1000,
+    "id": "rectBVNH1PkqGtIUS",
+    "image": "assets/cards/97590748.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "La Jinn the Mystical Genie of the Lamp",
+    "passcode": "97590748",
+    "rarity": "common",
+    "serial": "SDK-026",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1800"
+      },
+      {
+        "label": "DEF",
+        "value": "1000"
       },
       {
         "label": "Level",
@@ -3450,6 +5880,36 @@
     "type": "monster"
   },
   {
+    "atk": 0,
+    "attribute": "Light",
+    "cardType": "Spellcaster / Effect",
+    "def": 2000,
+    "id": "recu161dyOSkaMQOO",
+    "image": "assets/cards/70791313.jpg",
+    "isFirstEdition": true,
+    "level": 4,
+    "name": "Royal Magical Library",
+    "passcode": "70791313",
+    "rarity": "common",
+    "serial": "SD6-EN010",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "0"
+      },
+      {
+        "label": "DEF",
+        "value": "2000"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 900,
     "attribute": "Fire",
     "cardType": "Spellcaster / Normal",
@@ -3510,6 +5970,96 @@
     "type": "monster"
   },
   {
+    "atk": 1100,
+    "attribute": "Water",
+    "cardType": "Aqua / Normal",
+    "def": 2000,
+    "id": "recuQpeK4qg92IJKH",
+    "image": "assets/cards/4042268.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Island Turtle",
+    "passcode": "4042268",
+    "rarity": "common",
+    "serial": "SDJ-005",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1100"
+      },
+      {
+        "label": "DEF",
+        "value": "2000"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1800,
+    "attribute": "Light",
+    "cardType": "Fairy / Normal",
+    "def": 2000,
+    "id": "recuioX9WsIghHo4y",
+    "image": "assets/cards/31122091.jpg",
+    "isFirstEdition": false,
+    "level": 6,
+    "name": "Gyakutenno Megami",
+    "passcode": "31122091",
+    "rarity": "common",
+    "serial": "SDK-011",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1800"
+      },
+      {
+        "label": "DEF",
+        "value": "2000"
+      },
+      {
+        "label": "Level",
+        "value": "6"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1500,
+    "attribute": "Dark",
+    "cardType": "Spellcaster / Effect",
+    "def": 1000,
+    "id": "recuq3jGRZNFuQMHq",
+    "image": "assets/cards/63695531.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Gravekeeper's Spear Soldier",
+    "passcode": "63695531",
+    "rarity": "common",
+    "serial": "DR1-EN010",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1500"
+      },
+      {
+        "label": "DEF",
+        "value": "1000"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 1400,
     "attribute": "Wind",
     "cardType": "Dragon / Normal",
@@ -3540,6 +6090,66 @@
     "type": "monster"
   },
   {
+    "atk": 1600,
+    "attribute": "Dark",
+    "cardType": "Spellcaster / Effect",
+    "def": 1200,
+    "id": "recvWC9OrtY0Xk3ib",
+    "image": "assets/cards/6337436.jpg",
+    "isFirstEdition": true,
+    "level": 4,
+    "name": "Rapid-Fire Magician",
+    "passcode": "6337436",
+    "rarity": "common",
+    "serial": "SD6-EN016",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1600"
+      },
+      {
+        "label": "DEF",
+        "value": "1200"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 900,
+    "attribute": "Water",
+    "cardType": "Aqua / Effect",
+    "def": 1700,
+    "id": "recw9zmiHf91dTFBm",
+    "image": "assets/cards/29380133.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Yado Karu",
+    "passcode": "29380133",
+    "rarity": "common",
+    "serial": "MRD-104",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "900"
+      },
+      {
+        "label": "DEF",
+        "value": "1700"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 1100,
     "attribute": "Light",
     "cardType": "Warrior / Normal",
@@ -3560,6 +6170,36 @@
       {
         "label": "DEF",
         "value": "1000"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1600,
+    "attribute": "Dark",
+    "cardType": "Beast-Warrior / Effect",
+    "def": 600,
+    "id": "recwEwQgMu38ugnP7",
+    "image": "assets/cards/88975532.jpg",
+    "isFirstEdition": true,
+    "level": 4,
+    "name": "Pitch-Black Warwolf",
+    "passcode": "88975532",
+    "rarity": "common",
+    "serial": "RDS-EN026",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1600"
+      },
+      {
+        "label": "DEF",
+        "value": "600"
       },
       {
         "label": "Level",
@@ -3660,6 +6300,36 @@
     "type": "monster"
   },
   {
+    "atk": 1400,
+    "attribute": "Water",
+    "cardType": "Aqua / Normal",
+    "def": 1500,
+    "id": "recxEkqYnFRQ7wgaR",
+    "image": "assets/cards/65570596.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Red Archery Girl",
+    "passcode": "65570596",
+    "rarity": "common",
+    "serial": "SDP-002",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1400"
+      },
+      {
+        "label": "DEF",
+        "value": "1500"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 900,
     "attribute": "Earth",
     "cardType": "Winged Beast / Normal",
@@ -3684,6 +6354,96 @@
       {
         "label": "Level",
         "value": "3"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 0,
+    "attribute": "Earth",
+    "cardType": "Rock / Normal",
+    "def": 3000,
+    "id": "recyXXWDXmLz6G9mS",
+    "image": "assets/cards/67284908.jpg",
+    "isFirstEdition": false,
+    "level": 5,
+    "name": "Labyrinth Wall",
+    "passcode": "67284908",
+    "rarity": "common",
+    "serial": "MRL-055",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "0"
+      },
+      {
+        "label": "DEF",
+        "value": "3000"
+      },
+      {
+        "label": "Level",
+        "value": "5"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1900,
+    "attribute": "Earth",
+    "cardType": "Spellcaster / Normal",
+    "def": 900,
+    "id": "recyonGAuqqDEaifA",
+    "image": "assets/cards/42386471.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Toon Gemini Elf",
+    "passcode": "42386471",
+    "rarity": "common",
+    "serial": "DB2-EN119",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1900"
+      },
+      {
+        "label": "DEF",
+        "value": "900"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 1100,
+    "attribute": "Wind",
+    "cardType": "Winged Beast / Effect",
+    "def": 1000,
+    "id": "recysq3JXr94wcbYQ",
+    "image": "assets/cards/71283180.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Tornado Bird",
+    "passcode": "71283180",
+    "rarity": "common",
+    "serial": "DB2-EN009",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1100"
+      },
+      {
+        "label": "DEF",
+        "value": "1000"
+      },
+      {
+        "label": "Level",
+        "value": "4"
       }
     ],
     "summonType": null,
@@ -3830,6 +6590,36 @@
       {
         "label": "DEF",
         "value": "1200"
+      },
+      {
+        "label": "Level",
+        "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 2000,
+    "attribute": "Dark",
+    "cardType": "Fiend / Effect",
+    "def": 800,
+    "id": "reczqEVo0aLNDh4YG",
+    "image": "assets/cards/12953226.jpg",
+    "isFirstEdition": false,
+    "level": 4,
+    "name": "Nuvia the Wicked",
+    "passcode": "12953226",
+    "rarity": "common",
+    "serial": "DB1-EN216",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "2000"
+      },
+      {
+        "label": "DEF",
+        "value": "800"
       },
       {
         "label": "Level",
