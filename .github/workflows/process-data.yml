@@ -7,7 +7,7 @@ name: Process Data
 # data/cards.json to main would eventually race each other.
 
 on:
-  # Manual only. This is what the `/getdata` chat trigger calls, and what you
+  # Manual only. This is what the `/getyugidata` chat trigger calls, and what you
   # run yourself after adding rows to Airtable. No schedule — a daily poll
   # burns Airtable API credits with no new rows to justify it.
   workflow_dispatch:

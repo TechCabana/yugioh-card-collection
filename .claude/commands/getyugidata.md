@@ -1,5 +1,5 @@
 ---
-description: Manually trigger the Process Data GitHub Action (Airtable sync + deploy)
+description: Manually trigger the YuGiOh Process Data GitHub Action (Airtable sync + deploy)
 ---
 
 Run the `process data` trigger from this repo's CLAUDE.md (§6):
