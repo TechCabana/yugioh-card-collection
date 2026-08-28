@@ -7,14 +7,10 @@ name: Process Data
 # data/cards.json to main would eventually race each other.
 
 on:
-  # On demand — this is what the `process data` chat trigger calls, and what
-  # you run yourself after adding rows to Airtable.
+  # Manual only. This is what the `/getdata` chat trigger calls, and what you
+  # run yourself after adding rows to Airtable. No schedule — a daily poll
+  # burns Airtable API credits with no new rows to justify it.
   workflow_dispatch:
-
-  schedule:
-    # Daily sweep at 06:00 UTC. Airtable cannot push to GitHub without a paid
-    # automation, so a schedule means polling. Costs nothing when idle.
-    - cron: '0 6 * * *'
 
 # Shares the "pages" group with pages.yml because this workflow now deploys
 # Pages itself. Two concurrent deploys would fight; GitHub also rejects
