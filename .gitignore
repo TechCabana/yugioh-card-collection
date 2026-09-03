@@ -18,6 +18,9 @@ dist/
 # Planning / local-dev doc — never pushed to remote
 CLAUDE.md
 
+# Local design-hook config (impeccable skill) — dev tooling, not runtime
+.impeccable/
+
 # OS / editor
 .DS_Store
 Thumbs.db
