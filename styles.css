@@ -494,7 +494,55 @@ input {
     color: var(--text-primary);
 }
 
-.view-toggle {
+/*
+ * Sort. Styled as one of the toolbar's controls rather than left as the
+ * browser's default select, which on a dark page arrives as a white box.
+ *
+ * The <option> list itself is drawn by the operating system on most platforms;
+ * setting its colours here is what stops the popup rendering as black text on
+ * black where the platform does honour them.
+ */
+.sort-select {
+    padding: 0.5rem 1rem;
+    min-height: 44px;
+    border: 1px solid var(--border-subtle);
+    background: var(--surface-2);
+    color: var(--text-secondary);
+    border-radius: var(--radius-pill);
+    font-size: var(--text-sm);
+    transition: background-color var(--duration-state) var(--ease-out),
+                border-color var(--duration-state) var(--ease-out),
+                color var(--duration-state) var(--ease-out);
+}
+
+.sort-select option {
+    background: var(--surface-2);
+    color: var(--text-primary);
+}
+
+.sort-select:hover {
+    background: var(--surface-3);
+    border-color: var(--border-strong);
+    color: var(--text-primary);
+}
+
+/*
+ * An order other than the collection's own is state the user caused, so it
+ * takes the interaction accent — the same statement an active facet makes.
+ */
+.sort-select.is-active {
+    border-color: var(--accent-border);
+    background: var(--accent-wash);
+    color: var(--text-primary);
+}
+
+/*
+ * The two exclusive toggle groups share one treatment. They are the same
+ * control doing different jobs — pick one of these — and giving them separate
+ * rules is how the two drift apart.
+ */
+.view-toggle,
+.density-toggle {
     display: flex;
     gap: 0.3rem;
     background: var(--surface-2);
@@ -503,7 +551,8 @@ input {
     border-radius: var(--radius-md);
 }
 
-.view-btn {
+.view-btn,
+.density-btn {
     padding: 0.5rem 1.2rem;
     border: none;
     background: transparent;
@@ -515,8 +564,10 @@ input {
     font-size: var(--text-sm);
 }
 
-/* The current view is state, so it takes the accent like an active filter. */
-.view-btn.active {
+/* The current view and density are state, so both take the accent like an
+   active filter. */
+.view-btn.active,
+.density-btn.active {
     background: var(--accent);
     color: var(--accent-fg);
     font-weight: var(--weight-semibold);
@@ -1007,27 +1058,78 @@ input {
     padding: var(--space-4);
 }
 
+/*
+ * Density lives in two custom properties rather than in a second full
+ * grid-template-columns declaration, so the compact class overrides one value
+ * and every breakpoint below keeps working — the same trick the carousel uses
+ * for its geometry.
+ *
+ * The comfortable step is tighter than the 280px/2rem it replaces: a grid is
+ * how the collection is scanned, and at 280px with a 2rem gutter a 1400px
+ * container fitted four cards a row with the width of a fifth spent on air.
+ */
 .card-grid {
+    --grid-min: 240px;
+    --grid-gap: var(--space-3);
+
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(var(--grid-min), 1fr));
+    gap: var(--grid-gap);
     max-width: 1400px;
     margin: 0 auto 3rem auto;
 }
 
 /*
- * A grid card is content, not a control. It carries no click handler and no
- * activation of any kind, so it deliberately has no `cursor: pointer` and no
- * focusable element inside it: a pointer cursor on something that does nothing
- * when clicked is an affordance that lies, and giving it a tab stop would put
- * an empty stop in the tab order for a keyboard user to land on and find no
- * action behind.
+ * Compact trades the card's own breathing room for more cards on screen. The
+ * art keeps its 59:86 box — that is the card, and a card at the wrong ratio is
+ * a different object — so what gives way is the information block beneath it.
+ */
+.card-grid.is-compact {
+    --grid-min: 168px;
+    --grid-gap: var(--space-1);
+}
+
+.card-grid.is-compact .card-info-area {
+    padding: var(--space-1);
+}
+
+.card-grid.is-compact .card-name {
+    font-size: var(--text-sm);
+}
+
+.card-grid.is-compact .card-type {
+    font-size: var(--text-2xs);
+    margin-bottom: var(--space-1);
+}
+
+.card-grid.is-compact .card-stats-grid {
+    gap: 0.3rem;
+}
+
+.card-grid.is-compact .stat-box {
+    padding: 0.3rem;
+}
+
+.card-grid.is-compact .stat-value {
+    font-size: var(--text-xs);
+}
+
+/*
+ * A grid card is content; the control that opens its detail view is a real
+ * <button> stretched over it, exactly as on the carousel. So the card itself
+ * still carries no `cursor: pointer`, no tabindex and no handler — the pointer
+ * cursor and the tab stop both belong to .grid-card-action below, and they
+ * travel together, because a cursor without a keyboard-reachable control is
+ * an affordance that lies to one half of the audience.
  *
- * The hover response is kept, but small enough to read as depth rather than as
- * a promise of interactivity. The 10px lift it replaces was the same magnitude
- * the real controls use.
+ * position: relative is what the action anchors to.
+ *
+ * The hover response is small enough to read as depth rather than as a promise
+ * of interactivity; the 10px lift it replaces was the magnitude the real
+ * controls use.
  */
 .grid-card {
+    position: relative;
     background: var(--surface-1);
     border: 1px solid var(--border-hairline);
     border-radius: var(--radius-md);
@@ -1035,6 +1137,34 @@ input {
     transition: transform var(--duration-state) var(--ease-out),
                 border-color var(--duration-state) var(--ease-out),
                 box-shadow var(--duration-state) var(--ease-out);
+}
+
+/*
+ * Empty and transparent, stretched across the card. A button may only contain
+ * phrasing content, so wrapping the card's markup would swallow its <h3> and
+ * take the card name out of the document outline — the same reasoning, and the
+ * same shape, as .carousel-card-action.
+ *
+ * Its name is an aria-label naming the card, because the card's own text is
+ * not inside it.
+ */
+.grid-card-action {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    width: 100%;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    border-radius: inherit;
+    cursor: pointer;
+}
+
+/* The ring traces just inside the card's border rather than being clipped by
+   the parent's overflow: hidden. */
+.grid-card-action:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -4px;
 }
 
 .grid-card:hover {
@@ -1115,6 +1245,140 @@ input {
     color: var(--text-secondary);
 }
 
+/*
+ * Card detail dialog
+ *
+ * A native <dialog>, opened with showModal(). The UA centres it with
+ * `margin: auto`, which the `* { margin: 0 }` reset at the top of this file
+ * overrides — author styles beat UA styles regardless of specificity — so the
+ * margin is restated here. Without it the dialog opens in the top-left corner,
+ * which is a bug that only shows up in a browser and there is no browser here.
+ */
+.card-dialog {
+    margin: auto;
+    width: min(30rem, calc(100vw - 2 * var(--space-3)));
+    max-height: calc(100vh - 2 * var(--space-4));
+    padding: 0;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    background: var(--surface-1);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-3);
+    overflow: hidden;
+}
+
+/*
+ * Declared on [open] rather than on the element: the UA hides a closed dialog
+ * with `dialog:not([open]) { display: none }`, and a bare `display: flex` here
+ * would outrank it and leave the dialog on screen permanently.
+ */
+.card-dialog[open] {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Neutral black, the same scrim the rarity badge sits on. Never a tint. */
+.card-dialog::backdrop {
+    background: var(--overlay);
+}
+
+/*
+ * The heading in this row is visually hidden, so the close button is the row's
+ * only visible content and flex-end is what puts it on the right. space-between
+ * would leave it on the left, hard against a heading nobody can see.
+ */
+.card-dialog-head {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: none;
+    padding: var(--space-1);
+    border-bottom: 1px solid var(--border-hairline);
+}
+
+.dialog-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    flex: none;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: var(--text-lg);
+    cursor: pointer;
+    transition: background-color var(--duration-state) var(--ease-out),
+                border-color var(--duration-state) var(--ease-out),
+                color var(--duration-state) var(--ease-out);
+}
+
+.dialog-close:hover {
+    background: var(--surface-3);
+    border-color: var(--border-strong);
+    color: var(--text-primary);
+}
+
+/* Scrolls inside the dialog rather than growing it past the viewport. */
+.card-dialog-body {
+    overflow-y: auto;
+    padding: var(--space-2);
+}
+
+/*
+ * The card markup here is the same buildCardHTML the grid renders, so the art
+ * box already carries the 59:86 ratio and would be 700px tall at the dialog's
+ * full width. Capping the width is what caps the height, and it caps it
+ * through the ratio rather than against it.
+ */
+.card-dialog-body .card-image-area {
+    width: min(16rem, 100%);
+    margin: 0 auto;
+    border-radius: var(--radius-sm);
+}
+
+.card-dialog-body .card-info-area {
+    padding: var(--space-2) 0 0 0;
+}
+
+/*
+ * The fields the card face does not carry. auto-fit rather than a fixed column
+ * count, so three rows sit in one line on a wide dialog and stack on a phone
+ * without a breakpoint saying so.
+ */
+.card-detail-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+    gap: var(--space-1);
+    margin-top: var(--space-2);
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--border-hairline);
+}
+
+.detail-row {
+    background: var(--surface-2);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-xs);
+    padding: 0.6rem;
+}
+
+.detail-label {
+    font-size: var(--text-2xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+    margin-bottom: 0.2rem;
+}
+
+/* Data, like a stat box: neutral, with emphasis from weight rather than hue. */
+.detail-value {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--text-primary);
+    overflow-wrap: anywhere;
+}
+
 /* ==========================================================================
    Responsive breakpoints
 
@@ -1164,9 +1428,18 @@ input {
         padding: 1rem;
     }
 
+    /*
+     * Only the two density properties are restated. Overriding
+     * grid-template-columns here instead would pin the column width at this
+     * bracket and silently disable the compact class below 900px.
+     */
     .card-grid {
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 1.2rem;
+        --grid-min: 200px;
+        --grid-gap: var(--space-2);
+    }
+
+    .card-grid.is-compact {
+        --grid-min: 150px;
     }
 
     .grid-view {
@@ -1230,16 +1503,19 @@ input {
     /* 44px is the minimum comfortable touch target. */
     .facet-btn,
     .clear-btn,
-    .view-btn {
+    .view-btn,
+    .density-btn {
         min-height: 44px;
         font-size: var(--text-sm);
     }
 
-    .view-toggle {
+    .view-toggle,
+    .density-toggle {
         justify-content: center;
     }
 
-    .view-btn {
+    .view-btn,
+    .density-btn {
         flex: 1;
     }
 
@@ -1274,9 +1550,22 @@ input {
         height: 52px;
     }
 
+    /*
+     * One card per row at comfortable: below 640px there is no width for a
+     * second without the art becoming a thumbnail. `minmax(100%, 1fr)` is the
+     * density-property spelling of the single column this used to declare.
+     *
+     * Compact is where the toggle earns its keep on a phone: two columns at
+     * 320px, which is the difference between scrolling a collection and
+     * scrolling one card at a time.
+     */
     .card-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
+        --grid-min: 100%;
+        --grid-gap: var(--space-2);
+    }
+
+    .card-grid.is-compact {
+        --grid-min: 140px;
     }
 
     .grid-view {

@@ -223,3 +223,58 @@ export function buildCardHTML(card) {
         </div>
     `;
 }
+
+/**
+ * Fields the detail view adds, in display order.
+ *
+ * Only what the card face does not already carry. A monster's three stat boxes
+ * are ATK, DEF and Level, so its serial and attribute appear nowhere on it; a
+ * Spell's are Type, Attribute and Serial, so for that card two of these three
+ * rows are the second time it has been said. Repeating them is the lesser
+ * fault: a detail view whose contents change shape by card type is harder to
+ * read than one that always answers the same questions.
+ *
+ * Read straight off the record — no derived values — so nothing here can
+ * disagree with the data.
+ */
+const DETAIL_ROWS = [
+    { label: 'Serial', key: 'serial' },
+    { label: 'Attribute', key: 'attribute' },
+    { label: 'Passcode', key: 'passcode' }
+];
+
+/**
+ * Build the body of the card detail dialog.
+ *
+ * The card itself is the same markup the grid and the carousel render, so the
+ * detail view cannot drift away from the card it was opened from, and the
+ * 59:86 art box comes with it. Beneath it sits a definition list of the fields
+ * the face leaves out.
+ *
+ * Every value is escaped, exactly as in buildCardHTML: this markup reaches
+ * innerHTML and the data is Airtable's, which is to say untrusted.
+ *
+ * @param {object} card - a card record
+ * @returns {string} escaped HTML, safe to assign to innerHTML
+ */
+export function buildCardDetailHTML(card) {
+    if (!card || typeof card !== 'object') return '';
+
+    const rows = DETAIL_ROWS
+        .map(({ label, key }) => ({ label, value: card[key] }))
+        // A field the card has no value for is left out rather than rendered
+        // blank, so an empty row never reads as a missing value.
+        .filter(({ value }) => value !== null && value !== undefined && String(value).trim() !== '')
+        .map(({ label, value }) => `
+            <div class="detail-row">
+                <dt class="detail-label">${escapeHtml(label)}</dt>
+                <dd class="detail-value">${escapeHtml(value)}</dd>
+            </div>
+        `)
+        .join('');
+
+    // A <dl> with no rows is an empty box on screen, so it is not emitted.
+    const list = rows === '' ? '' : `<dl class="card-detail-list">${rows}</dl>`;
+
+    return `${buildCardHTML(card)}${list}`;
+}

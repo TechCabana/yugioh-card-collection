@@ -115,9 +115,11 @@ describe('the heading outline', () => {
         expect(indexHtml.match(/<h1[\s>]/g) ?? []).toHaveLength(1);
     });
 
-    it('gives each view an h2, so cards do not jump from h1 to h3', () => {
+    // Three: one per view, plus the detail dialog, which needs a name of its
+    // own and would otherwise put its card's h3 directly under the h1.
+    it('gives each view and the dialog an h2, so cards do not jump from h1 to h3', () => {
         const h2s = indexHtml.match(/<h2[^>]*>/g) ?? [];
-        expect(h2s).toHaveLength(2);
+        expect(h2s).toHaveLength(3);
         for (const heading of h2s) {
             expect(heading).toMatch(/visually-hidden/);
         }
@@ -184,12 +186,42 @@ describe('control labelling', () => {
     });
 
     // The one toggle that starts engaged is the default view, and its markup
-    // must agree with the class it also carries.
-    it('starts with the carousel toggle both active and pressed', () => {
+    // must agree with the class it also carries. The grid is that default now:
+    // a collection is scanned, and the carousel is a showcase.
+    it('starts with the grid toggle both active and pressed', () => {
+        const grid = buttons.find(({ attributes }) => /data-view="grid"/.test(attributes));
+
+        expect(grid.attributes).toMatch(/class="view-btn active"/);
+        expect(grid.attributes).toMatch(/aria-pressed="true"/);
+    });
+
+    it('starts with the carousel toggle unpressed, so exactly one view is on', () => {
         const carousel = buttons.find(({ attributes }) => /data-view="carousel"/.test(attributes));
 
-        expect(carousel.attributes).toMatch(/class="view-btn active"/);
-        expect(carousel.attributes).toMatch(/aria-pressed="true"/);
+        expect(carousel.attributes).not.toMatch(/active/);
+        expect(carousel.attributes).toMatch(/aria-pressed="false"/);
+    });
+
+    // Same exclusive-toggle contract as the view buttons, so the same rules
+    // apply: an initial aria-pressed, and exactly one of them engaged.
+    it('gives the density group a name and both its buttons an aria-pressed', () => {
+        const density = buttons.filter(({ attributes }) => /class="density-btn/.test(attributes));
+
+        expect(density).toHaveLength(2);
+        expect(indexHtml).toMatch(/id="densityToggle" role="group" aria-label="[^"]+"/);
+        for (const button of density) {
+            expect(button.attributes).toMatch(/aria-pressed="(true|false)"/);
+            expect(button.attributes).toMatch(/data-density="(comfortable|compact)"/);
+        }
+
+        const pressed = density.filter(({ attributes }) => /aria-pressed="true"/.test(attributes));
+        expect(pressed).toHaveLength(1);
+        expect(pressed[0].attributes).toMatch(/data-density="comfortable"/);
+    });
+
+    it('labels the sort menu rather than leaving a bare select', () => {
+        expect(indexHtml).toMatch(/<label class="visually-hidden" for="sortSelect">[^<]+<\/label>/);
+        expect(indexHtml).toMatch(/<select class="sort-select" id="sortSelect"><\/select>/);
     });
 
     it('labels the search field rather than relying on the placeholder', () => {
@@ -218,6 +250,53 @@ describe('control labelling', () => {
     it('routes every state change through the toggle helper', () => {
         expect(scriptJs).toMatch(/import \{ setToggleState, setExclusiveToggle \}/);
         expect(scriptJs).not.toMatch(/classList\.(add|remove)\('active'\)/);
+    });
+});
+
+/**
+ * The card detail dialog.
+ *
+ * A native <dialog> opened with showModal() is what supplies the focus trap,
+ * the Escape handling, the inert background and the return of focus to the
+ * opener. Asserting the element and the call together is the only check
+ * available here — there is no DOM environment to open it in — so what these
+ * guard is that the native mechanism is the one being used, rather than a div
+ * with a class that would have to reimplement all four.
+ */
+describe('the card detail dialog', () => {
+    it('is a real dialog element with an accessible name', () => {
+        expect(indexHtml).toMatch(/<dialog class="card-dialog" id="cardDialog" aria-labelledby="cardDialogTitle">/);
+        expect(indexHtml).toMatch(/id="cardDialogTitle"/);
+    });
+
+    it('is opened modally, which is what traps focus and answers Escape', () => {
+        expect(scriptJs).toMatch(/dialog\.showModal\(\)/);
+        // show() is the non-modal form and does none of that; a served `open`
+        // attribute would put the dialog on screen with no modality at all.
+        expect(scriptJs).not.toMatch(/\.show\(\)/);
+        expect(indexHtml).not.toMatch(/<dialog[^>]*\sopen[\s>]/);
+    });
+
+    it('carries a visible close control as well as Escape', () => {
+        expect(indexHtml).toMatch(/<button class="dialog-close" type="button" id="cardDialogClose" aria-label="[^"]+"/);
+        expect(scriptJs).toMatch(/getElementById\('cardDialogClose'\)\.addEventListener\('click'/);
+    });
+
+    it('hands focus back to whatever opened it', () => {
+        expect(scriptJs).toMatch(/cardDialogOpener/);
+        expect(scriptJs).toMatch(/opener\?\.isConnected\) opener\.focus\(\)/);
+    });
+
+    // Escape means "close the card" while it is up. Letting the page-wide
+    // shortcut through as well would empty the user's whole selection behind
+    // the card they just closed — both handlers have to stand down.
+    it('stops the page-wide Escape shortcut from firing behind it', () => {
+        expect(scriptJs).toMatch(/function isCardDialogOpen\(\)/);
+        expect(scriptJs.match(/if \(isCardDialogOpen\(\)\) return;/g) ?? []).toHaveLength(2);
+    });
+
+    it('empties the body on close, so no stale card is held', () => {
+        expect(scriptJs).toMatch(/getElementById\('cardDialogBody'\)\.replaceChildren\(\)/);
     });
 });
 

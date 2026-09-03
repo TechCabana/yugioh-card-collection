@@ -107,6 +107,20 @@
         -->
         <div class="facet-bar" id="facetBar"></div>
 
+        <!--
+          Sort. A native <select> rather than a custom menu: this is a
+          one-of-many choice, and the platform control already has the keyboard
+          behaviour, the mobile picker and the screen-reader support that a
+          hand-rolled listbox has to reimplement and usually gets wrong.
+
+          The options are built from SORT_FIELDS in assets/js/sort.js so the
+          menu and the comparison rules cannot name different fields.
+        -->
+        <div class="sort">
+            <label class="visually-hidden" for="sortSelect">Sort the collection</label>
+            <select class="sort-select" id="sortSelect"></select>
+        </div>
+
         <button class="clear-btn" type="button" id="clearFilters" hidden>Clear filters</button>
 
         <!--
@@ -123,9 +137,30 @@
             <span class="refresh-stamp" id="refreshStamp" aria-live="polite"></span>
         </div>
 
+        <!--
+          Density. Grid only, so script.js hides the group while the showcase
+          is on screen rather than leaving two buttons that do nothing.
+
+          role="group" with a name, because "Comfortable" and "Compact" mean
+          nothing announced on their own — the same reason the chips carry a
+          label naming the facet they came from.
+        -->
+        <div class="density-toggle" id="densityToggle" role="group" aria-label="Grid density">
+            <button class="density-btn active" type="button" data-density="comfortable" aria-pressed="true">Comfortable</button>
+            <button class="density-btn" type="button" data-density="compact" aria-pressed="false">Compact</button>
+        </div>
+
+        <!--
+          The grid is the default and is listed first. The carousel is a
+          showcase: one card at a time in a stage most of a viewport tall,
+          which is a way to admire a card rather than a way to find one.
+
+          data-view="carousel" is unchanged — it is the identifier the code and
+          the URL both use, and only the label the user reads has moved.
+        -->
         <div class="view-toggle">
-            <button class="view-btn active" type="button" data-view="carousel" aria-pressed="true">Carousel</button>
-            <button class="view-btn" type="button" data-view="grid" aria-pressed="false">Grid</button>
+            <button class="view-btn active" type="button" data-view="grid" aria-pressed="true">Grid</button>
+            <button class="view-btn" type="button" data-view="carousel" aria-pressed="false">Showcase</button>
         </div>
     </search>
 
@@ -198,6 +233,29 @@
             </nav>
         </div>
     </main>
+
+    <!--
+      Card detail, opened from a grid card.
+
+      A native <dialog> driven by showModal(), not a div with a class on it.
+      The platform gives the focus trap, Escape, the inert background, the
+      backdrop and the return of focus to whatever opened it — five things a
+      hand-rolled overlay has to reimplement, and the list of overlays on the
+      web that get all five right is short.
+
+      The title is visually hidden and static: the card's own name is rendered
+      as the <h3> inside, so a visible "Dark Magician" heading above it would
+      be a screen reader announcing the same name twice. It still exists,
+      because the dialog needs an accessible name and the outline should not
+      jump from the h1 to an h3.
+    -->
+    <dialog class="card-dialog" id="cardDialog" aria-labelledby="cardDialogTitle">
+        <div class="card-dialog-head">
+            <h2 class="visually-hidden" id="cardDialogTitle">Card details</h2>
+            <button class="dialog-close" type="button" id="cardDialogClose" aria-label="Close card details">×</button>
+        </div>
+        <div class="card-dialog-body" id="cardDialogBody"></div>
+    </dialog>
 
     <script type="module" src="script.js"></script>
 </body>
