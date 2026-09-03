@@ -124,20 +124,6 @@
         <button class="clear-btn" type="button" id="clearFilters" hidden>Clear filters</button>
 
         <!--
-          Re-fetches the deployed data/cards.json. It does not talk to Airtable
-          — a static page has nowhere safe to keep a token (§3 of CLAUDE.md) —
-          so what it picks up is whatever the last pipeline run deployed.
-
-          The label beside it is the time of the last fetch, not of the last
-          Airtable write: cards.json carries no timestamp, and claiming to know
-          when the data changed would be a guess.
-        -->
-        <div class="refresh">
-            <button class="refresh-btn" type="button" id="refreshBtn">Refresh</button>
-            <span class="refresh-stamp" id="refreshStamp" aria-live="polite"></span>
-        </div>
-
-        <!--
           Density. Grid only, so script.js hides the group while the showcase
           is on screen rather than leaving two buttons that do nothing.
 
@@ -161,6 +147,24 @@
         <div class="view-toggle">
             <button class="view-btn active" type="button" data-view="grid" aria-pressed="true">Grid</button>
             <button class="view-btn" type="button" data-view="carousel" aria-pressed="false">Showcase</button>
+        </div>
+
+        <!--
+          Re-fetches the deployed data/cards.json. It does not talk to Airtable
+          — a static page has nowhere safe to keep a token (§3 of CLAUDE.md) —
+          so what it picks up is whatever the last pipeline run deployed.
+
+          The label beside it is the time of the last fetch, not of the last
+          Airtable write: cards.json carries no timestamp, and claiming to know
+          when the data changed would be a guess.
+
+          Last in the toolbar, after view/density — it is a data action, not a
+          browsing control, so it sits apart from the group that shapes what is
+          on screen.
+        -->
+        <div class="refresh">
+            <button class="refresh-btn" type="button" id="refreshBtn">Refresh</button>
+            <span class="refresh-stamp" id="refreshStamp" aria-live="polite"></span>
         </div>
     </search>
 
