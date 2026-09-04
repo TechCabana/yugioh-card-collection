@@ -527,6 +527,37 @@
     "type": "monster"
   },
   {
+    "atk": 2500,
+    "attribute": "Dark",
+    "cardType": "Spellcaster / Normal",
+    "def": 2100,
+    "hasEffect": false,
+    "id": "rec4ipwxRE22NC7p1",
+    "image": "assets/cards/46986421.jpg",
+    "isFirstEdition": true,
+    "level": 7,
+    "name": "Dark Magician",
+    "passcode": "46986421",
+    "rarity": "quarter_century",
+    "serial": "LC01-EN005",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "2500"
+      },
+      {
+        "label": "DEF",
+        "value": "2100"
+      },
+      {
+        "label": "Level",
+        "value": "7"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 1200,
     "attribute": "Fire",
     "cardType": "Warrior / Normal",
@@ -1581,6 +1612,37 @@
     "type": "monster"
   },
   {
+    "atk": 2400,
+    "attribute": "Dark",
+    "cardType": "Dragon / Normal",
+    "def": 2000,
+    "hasEffect": false,
+    "id": "recFbrbVaf18hOxOT",
+    "image": "assets/cards/74677427.jpg",
+    "isFirstEdition": true,
+    "level": 7,
+    "name": "Red-Eyes Black Dragon",
+    "passcode": "74677427",
+    "rarity": "quarter_century",
+    "serial": "LC01-EN006",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "2400"
+      },
+      {
+        "label": "DEF",
+        "value": "2000"
+      },
+      {
+        "label": "Level",
+        "value": "7"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
     "atk": 1450,
     "attribute": "Light",
     "cardType": "Spellcaster / Normal",
@@ -2133,6 +2195,37 @@
       {
         "label": "Level",
         "value": "4"
+      }
+    ],
+    "summonType": null,
+    "type": "monster"
+  },
+  {
+    "atk": 2000,
+    "attribute": "Dark",
+    "cardType": "Machine / Normal",
+    "def": 2300,
+    "hasEffect": false,
+    "id": "recJCHipqsej2A8wJ",
+    "image": "assets/cards/3797883.jpg",
+    "isFirstEdition": false,
+    "level": 7,
+    "name": "Slot Machine",
+    "passcode": "3797883",
+    "rarity": "super_short_print",
+    "serial": "MRL-028",
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "2000"
+      },
+      {
+        "label": "DEF",
+        "value": "2300"
+      },
+      {
+        "label": "Level",
+        "value": "7"
       }
     ],
     "summonType": null,
