@@ -1,5 +1,5 @@
 import { loadCards, cacheBustedUrl, formatUpdatedAt } from './assets/js/data.js';
-import { buildCardHTML } from './assets/js/render.js';
+import { buildCardHTML, buildCardDetailHTML } from './assets/js/render.js';
 import {
     filterCards,
     matchesSearch,
@@ -14,7 +14,31 @@ import { focusIndexAfterRemoval } from './assets/js/focus.js';
 import { debounce } from './assets/js/debounce.js';
 import { isTextEntryTarget } from './assets/js/keyboard.js';
 import { setToggleState, setExclusiveToggle } from './assets/js/toggle.js';
-import { VIEW_CAROUSEL, normaliseView, getViewVisibility } from './assets/js/view.js';
+import {
+    VIEW_CAROUSEL,
+    DENSITY_COMPACT,
+    normaliseView,
+    normaliseDensity,
+    getViewVisibility
+} from './assets/js/view.js';
+import {
+    SORT_COLLECTION,
+    sortCards,
+    sortOptions,
+    sortValue,
+    parseSortValue
+} from './assets/js/sort.js';
+import { parseUrlState, serialiseUrlState } from './assets/js/url-state.js';
+
+/**
+ * The state the page was opened with.
+ *
+ * Read before anything is rendered, so a shared or reloaded link never shows
+ * the default view first and then snaps to what was asked for. Every value
+ * here is already normalised — see assets/js/url-state.js — so nothing below
+ * has to re-check what came out of the query string.
+ */
+const openingState = parseUrlState(window.location.search);
 
 // Populated from data/cards.json once the fetch resolves.
 let allCards = [];
@@ -23,18 +47,74 @@ let currentIndex = 0;
 // Selected values keyed by facet. Facets AND against each other, values within
 // a facet OR — see matchesSelection() in assets/js/facets.js. One object rather
 // than a variable per group, so adding a facet needs no new state here.
-let activeFacets = {};
-let currentView = VIEW_CAROUSEL;
+let activeFacets = openingState.facets;
+let currentView = openingState.view;
+let currentDensity = openingState.density;
+let sortField = openingState.sortField;
+let sortDirection = openingState.sortDirection;
 let currentPage = 1;
-const cardsPerPage = 18;
+
+/**
+ * Cards on one grid page.
+ *
+ * Raised from 18. The collection is past 200 cards, which 18 turned into
+ * thirteen pages of a view whose whole job is scanning — a page button pressed
+ * twelve times is not browsing. 48 lands it at five.
+ *
+ * Pagination is kept rather than replaced with infinite scroll, deliberately.
+ * The page count is announced through an aria-live region and the pagination
+ * is a named landmark; an infinite list has neither, gives a keyboard user no
+ * way to reach anything below it, and would need its own history handling to
+ * survive the back button. The art is `loading="lazy"` (render.js), so a larger
+ * page costs no requests until the images are actually scrolled to.
+ */
+const cardsPerPage = 48;
 
 // Views stay hidden until the fetch resolves, so the page never flashes empty
 // controls over a blank stage. Held here because view visibility depends on it
 // as much as it depends on which view is selected.
 let isDataReady = false;
 
-// Free-text search term, combined on top of the pill filters in applyFilters().
-let searchQuery = '';
+// Free-text search term, combined on top of the facet filters in applyFilters().
+let searchQuery = openingState.query;
+
+/**
+ * The control that opened the detail dialog, so focus can be handed back.
+ *
+ * showModal() restores focus by itself, but only to an element still in the
+ * document — and the grid is rebuilt by any filter change. Holding the
+ * reference lets the close handler check that before trying.
+ */
+let cardDialogOpener = null;
+
+/**
+ * Write the current state into the address bar.
+ *
+ * `replaceState`, not `pushState`. Ticking a facet is an adjustment to the view
+ * the user is already in, not a navigation away from it: pushing an entry per
+ * checkbox would bury the page they arrived from under a dozen Back presses,
+ * for a history stack whose entries all say "the same collection, slightly
+ * differently filtered". replaceState still leaves a URL that reloads, shares
+ * and bookmarks correctly, which is what the card actually asked for.
+ *
+ * Because nothing is ever pushed, there is no history entry to pop and so no
+ * popstate handler here — Back leaves the page, which is what it did before.
+ *
+ * @returns {void}
+ */
+function writeUrlState() {
+    const query = serialiseUrlState({
+        view: currentView,
+        density: currentDensity,
+        sortField,
+        sortDirection,
+        query: searchQuery,
+        facets: activeFacets
+    });
+
+    // An empty query string becomes the bare path rather than a dangling `?`.
+    window.history.replaceState(null, '', query === '' ? window.location.pathname : `?${query}`);
+}
 
 
 /**
@@ -188,6 +268,98 @@ function updateCarousel() {
     document.getElementById('totalCardsCarousel').textContent = filteredCards.length;
 }
 
+/**
+ * Build the control that opens a card's detail view.
+ *
+ * Same shape and same reasoning as buildCarouselCardAction: an empty button
+ * stretched over the card rather than a wrapper around it, because a button
+ * may only contain phrasing content and wrapping would swallow the card's
+ * <h3> and take the name out of the document outline.
+ *
+ * This is what makes the grid card's pointer cursor honest — before it, the
+ * grid had a hover response and nothing behind it. The affordance and the
+ * keyboard-reachable control arrive together, which is the pairing
+ * tests/affordance.test.js exists to hold.
+ *
+ * The name is set with setAttribute rather than interpolated: the card name is
+ * Airtable's, and is not to be trusted into markup.
+ *
+ * @param {object} card - the card the button opens
+ * @returns {HTMLElement} the button
+ */
+function buildGridCardAction(card) {
+    const action = document.createElement('button');
+    action.type = 'button';
+    action.className = 'grid-card-action';
+    action.setAttribute('aria-label', `Show details for ${card?.name ?? 'card'}`);
+
+    action.addEventListener('click', () => openCardDialog(card, action));
+
+    return action;
+}
+
+/**
+ * Open the detail dialog on one card.
+ *
+ * showModal() rather than an `open` attribute or a div with a class: only the
+ * modal form puts the dialog in the top layer, makes everything behind it
+ * inert, traps focus inside it and answers Escape — all four for free, and all
+ * four are things a hand-rolled overlay has to reimplement.
+ *
+ * @param {object} card - the card to show
+ * @param {HTMLElement} opener - the control that asked for it
+ * @returns {void}
+ */
+function openCardDialog(card, opener) {
+    const dialog = document.getElementById('cardDialog');
+    // Escaped in render.js, exactly as for the card in the grid behind it.
+    document.getElementById('cardDialogBody').innerHTML = buildCardDetailHTML(card);
+
+    cardDialogOpener = opener;
+    dialog.showModal();
+}
+
+/**
+ * Whether the detail dialog is currently open.
+ *
+ * The page's global Escape shortcut clears every filter, which must not happen
+ * when Escape was meant for the dialog — closing a card would otherwise empty
+ * the user's whole selection behind it.
+ *
+ * @returns {boolean} true while the dialog is showing
+ */
+function isCardDialogOpen() {
+    return document.getElementById('cardDialog').open === true;
+}
+
+document.getElementById('cardDialogClose').addEventListener('click', () => {
+    document.getElementById('cardDialog').close();
+});
+
+// A click on the backdrop. The dialog's own children fill it edge to edge —
+// its padding is 0 — so the element itself is only ever the target out here.
+document.getElementById('cardDialog').addEventListener('click', (event) => {
+    if (event.target === event.currentTarget) event.currentTarget.close();
+});
+
+/*
+ * One close handler for every way it can close: the button, Escape, and the
+ * backdrop all fire `close`.
+ *
+ * The body is emptied so a closed dialog holds no stale card, and focus goes
+ * back to the control that opened it. showModal() already restores focus, but
+ * only while that element is still in the document, so the check is what makes
+ * the promise unconditional.
+ */
+document.getElementById('cardDialog').addEventListener('close', () => {
+    document.getElementById('cardDialogBody').replaceChildren();
+
+    const opener = cardDialogOpener;
+    cardDialogOpener = null;
+
+    if (opener?.isConnected) opener.focus();
+});
+
 function updateGrid() {
     const grid = document.getElementById('cardGrid');
     grid.innerHTML = '';
@@ -212,6 +384,9 @@ function updateGrid() {
         const cardEl = document.createElement('li');
         cardEl.className = 'grid-card';
         cardEl.innerHTML = buildCardHTML(card);
+        // The li itself stays a plain list item — no tabindex, no role, no
+        // handler. The tab stop and the click both belong to the button.
+        cardEl.appendChild(buildGridCardAction(card));
         grid.appendChild(cardEl);
     });
 
@@ -236,10 +411,19 @@ function updateGrid() {
 function applyFilters({ preservePosition = false } = {}) {
     // Facets AND against each other; values inside a facet OR. The search term
     // ANDs on top of all of them, all handled inside filterCards().
-    filteredCards = filterCards(allCards, {
-        facets: activeFacets,
-        query: searchQuery
-    });
+    //
+    // Sorting runs over the result rather than over allCards: an order decides
+    // which of the matching cards you meet first, and can neither widen nor
+    // narrow what matched. The facet counts are unaffected — facetOptions
+    // counts a set, and a set has no order.
+    filteredCards = sortCards(
+        filterCards(allCards, {
+            facets: activeFacets,
+            query: searchQuery
+        }),
+        sortField,
+        sortDirection
+    );
 
     if (preservePosition) {
         // Clamped rather than trusted outright: the refreshed collection can
@@ -258,6 +442,11 @@ function applyFilters({ preservePosition = false } = {}) {
 
     document.getElementById('visibleCardsCount').textContent = filteredCards.length;
     document.getElementById('totalCardsCount').textContent = allCards.length;
+
+    // Every path into this function changed something the URL carries — a
+    // facet, the search term, the sort, or the collection behind them — so the
+    // address bar is brought back into step here rather than at each caller.
+    writeUrlState();
 
     if (currentView === VIEW_CAROUSEL) {
         updateCarousel();
@@ -570,6 +759,9 @@ document.addEventListener('click', (event) => {
 
 document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape') return;
+    // The dialog answers Escape itself, and a facet panel cannot be open
+    // behind it anyway — everything back there is inert while it is showing.
+    if (isCardDialogOpen()) return;
 
     const openPanel = [...document.querySelectorAll('.facet-panel')].find(panel => !panel.hidden);
     if (!openPanel) return;
@@ -593,6 +785,10 @@ function clearAllFilters() {
 
 document.getElementById('clearFilters').addEventListener('click', clearAllFilters);
 
+// A search term carried in on the URL has to show in the box it came from,
+// or the results look filtered by nothing.
+document.getElementById('searchInput').value = searchQuery;
+
 // Live search: debounced so filtering/re-render doesn't run on every keystroke.
 document.getElementById('searchInput').addEventListener('input', debounce((e) => {
     searchQuery = e.target.value;
@@ -608,6 +804,7 @@ document.querySelectorAll('.view-btn').forEach(btn => {
         currentView = normaliseView(btn.dataset.view);
 
         applyViewVisibility();
+        writeUrlState();
 
         if (currentView === VIEW_CAROUSEL) {
             updateCarousel();
@@ -616,6 +813,109 @@ document.querySelectorAll('.view-btn').forEach(btn => {
         }
     });
 });
+
+/**
+ * Push the current density onto the grid.
+ *
+ * A class toggle reading two custom properties in styles.css, not inline
+ * styles: the sizes belong in the stylesheet with the breakpoints that adjust
+ * them, and an inline style would outrank every one of those.
+ *
+ * @returns {void}
+ */
+function applyDensity() {
+    document.getElementById('cardGrid')
+        .classList.toggle('is-compact', currentDensity === DENSITY_COMPACT);
+}
+
+// Density toggle. Same exclusive-group handling as the view buttons, so the
+// visible state and the announced aria-pressed cannot drift apart.
+document.querySelectorAll('.density-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        setExclusiveToggle(document.querySelectorAll('.density-btn'), btn);
+        currentDensity = normaliseDensity(btn.dataset.density);
+
+        applyDensity();
+        writeUrlState();
+    });
+});
+
+/**
+ * Mark the sort control as active when it is doing something.
+ *
+ * Collection order is the absence of a sort, so it is the one choice that
+ * takes no accent — the same statement an unticked facet makes.
+ *
+ * @returns {void}
+ */
+function syncSortState() {
+    document.getElementById('sortSelect')
+        .classList.toggle('is-active', sortField !== SORT_COLLECTION);
+}
+
+/**
+ * Fill the sort menu and wire it up.
+ *
+ * The options come from sortOptions() rather than from index.html, so the menu
+ * cannot offer a field the comparison rules do not implement, or miss one they
+ * do. Built with createElement and textContent: the labels are this app's own
+ * strings today, but the menu is one edit away from being data-driven and an
+ * escaping mistake there is not worth the saving.
+ *
+ * @returns {void}
+ */
+function buildSortMenu() {
+    const select = document.getElementById('sortSelect');
+
+    for (const option of sortOptions()) {
+        const el = document.createElement('option');
+        el.value = option.value;
+        el.textContent = option.label;
+        select.appendChild(el);
+    }
+
+    // Whatever the URL asked for, already normalised.
+    select.value = sortValue(sortField, sortDirection);
+
+    select.addEventListener('change', () => {
+        const next = parseSortValue(select.value);
+        sortField = next.field;
+        sortDirection = next.direction;
+
+        syncSortState();
+        // Not preservePosition: reordering makes "card 4" a different card, so
+        // holding the index would move the user somewhere they did not ask for.
+        applyFilters();
+    });
+
+    syncSortState();
+}
+
+buildSortMenu();
+
+/**
+ * Bring the toolbar's toggles into line with the state the page opened in.
+ *
+ * index.html ships the defaults marked active, which is right for a bare
+ * visit and wrong for a link carrying a view or a density. Both values are
+ * normalised before they get here, so the selectors below can only ever match
+ * a button that exists.
+ *
+ * @returns {void}
+ */
+function syncToolbarToggles() {
+    setExclusiveToggle(
+        document.querySelectorAll('.view-btn'),
+        document.querySelector(`.view-btn[data-view="${currentView}"]`)
+    );
+    setExclusiveToggle(
+        document.querySelectorAll('.density-btn'),
+        document.querySelector(`.density-btn[data-density="${currentDensity}"]`)
+    );
+}
+
+syncToolbarToggles();
+applyDensity();
 
 // Carousel navigation
 document.getElementById('prevBtn').addEventListener('click', () => {
@@ -649,8 +949,15 @@ document.getElementById('nextPage').addEventListener('click', () => {
 // Keyboard navigation
 document.addEventListener('keydown', (e) => {
     // Stand down while the user is typing, or Left and Right would move the
-    // text cursor and the carousel at the same time.
+    // text cursor and the carousel at the same time. The sort menu is a
+    // <select>, which isTextEntryTarget already covers — its own arrow keys
+    // change the selected option.
     if (isTextEntryTarget(e.target)) return;
+
+    // Stand down while the detail dialog is up. Escape belongs to the dialog
+    // there, and clearing every filter behind a card the user just closed
+    // would be the most destructive thing this page can do by accident.
+    if (isCardDialogOpen()) return;
 
     // Escape clears filters from anywhere, including the grid view.
     if (e.key === 'Escape') {
@@ -712,6 +1019,11 @@ function applyViewVisibility() {
     const visibility = getViewVisibility(currentView, isDataReady);
     document.getElementById('carouselView').hidden = !visibility.carousel;
     document.getElementById('gridView').hidden = !visibility.grid;
+    // Density changes the grid and nothing else, so the control is offered
+    // exactly when the grid is on screen. Two buttons that do nothing while
+    // the showcase is up would be the same lie the grid card's old pointer
+    // cursor told.
+    document.getElementById('densityToggle').hidden = !visibility.grid;
 }
 
 /**
@@ -811,6 +1123,11 @@ async function init() {
 
         setStatus(null);
         setDataReady(true);
+        // Any facet value the URL carried is checked against the collection
+        // before a single card is drawn. A link naming a set that is no longer
+        // held — or a value invented by hand — would otherwise filter the page
+        // down to nothing with no way for the reader to see why.
+        activeFacets = pruneSelection(activeFacets, allCards);
         // The facets and their values are read off the collection, so the
         // toolbar cannot be built until the data is in.
         buildFacetBar();

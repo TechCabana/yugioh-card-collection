@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
     buildCardHTML,
+    buildCardDetailHTML,
     buildCardImageHTML,
     buildEditionBadgeHTML,
     buildStatsHTML,
@@ -359,5 +360,63 @@ describe('buildCardHTML', () => {
     it('returns an empty string for a missing card', () => {
         expect(buildCardHTML(null)).toBe('');
         expect(buildCardHTML('card')).toBe('');
+    });
+});
+
+describe('buildCardDetailHTML', () => {
+    const detailCard = { ...baseCard, attribute: 'Dark', passcode: '46986414' };
+
+    // The detail view is the same card the user clicked, not a second
+    // rendering of it — so the art keeps its 59:86 box and the escaping,
+    // the frame colour and the badges all come along unchanged.
+    it('opens with the card markup the grid already renders', () => {
+        expect(buildCardDetailHTML(detailCard)).toContain(buildCardHTML(detailCard));
+    });
+
+    it('adds the fields the card face does not carry', () => {
+        const html = buildCardDetailHTML(detailCard);
+
+        expect(html).toContain('<dl class="card-detail-list">');
+        for (const label of ['Serial', 'Attribute', 'Passcode']) {
+            expect(html).toContain(`<dt class="detail-label">${label}</dt>`);
+        }
+        expect(html).toContain('>LOB-005</dd>');
+        expect(html).toContain('>Dark</dd>');
+        expect(html).toContain('>46986414</dd>');
+    });
+
+    // A blank row reads as a missing value rather than as a field that does
+    // not apply — a Token has no attribute, and says so by not saying it.
+    it('leaves out a field the card has no value for', () => {
+        const html = buildCardDetailHTML({ ...detailCard, attribute: null, passcode: '' });
+
+        expect(html).toContain('Serial');
+        expect(html).not.toContain('Attribute');
+        expect(html).not.toContain('Passcode');
+    });
+
+    it('emits no empty list when the card carries none of them', () => {
+        const html = buildCardDetailHTML({ name: 'Nameless', type: 'monster', rarity: 'common' });
+
+        expect(html).not.toContain('card-detail-list');
+        expect(html).toContain('Nameless');
+    });
+
+    // This markup reaches innerHTML like every other card rendering, and the
+    // data behind it is Airtable's.
+    it('escapes a hostile field value', () => {
+        const html = buildCardDetailHTML({
+            ...detailCard,
+            serial: '<img src=x onerror="alert(1)">'
+        });
+
+        expect(html).toContain('&lt;img src=x');
+        expect(html).not.toContain('<img src=x');
+    });
+
+    it('returns an empty string for a missing card', () => {
+        expect(buildCardDetailHTML(null)).toBe('');
+        expect(buildCardDetailHTML(undefined)).toBe('');
+        expect(buildCardDetailHTML('card')).toBe('');
     });
 });
