@@ -21,6 +21,7 @@ import { matchesSelection } from './facets.js';
 export const RARITY_ORDER = [
     'common',
     'short_print',
+    'super_short_print',
     'rare',
     'super',
     'ultra',
@@ -29,7 +30,8 @@ export const RARITY_ORDER = [
     'prismatic',
     'collector',
     'ghost',
-    'starlight'
+    'starlight',
+    'quarter_century'
 ];
 
 /** Lowest tier that the "Rare Only" filter accepts. */
