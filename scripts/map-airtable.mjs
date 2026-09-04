@@ -105,6 +105,23 @@ export function buildStats(fields) {
  * @param {{id: string, fields: object}} record - an Airtable record
  * @returns {string[]} the missing field names, empty when the record maps
  */
+/**
+ * Whether a record is a fully blank row: no Serial and no Name typed.
+ *
+ * Airtable's UI creates one of these whenever "+" is clicked without filling
+ * anything in. It is not a real card missing required fields — it is not a
+ * row at all — so it must not be reported as a dropped record.
+ *
+ * @param {object} [fields] - raw Airtable fields
+ * @returns {boolean} true when both Serial and Name are empty/whitespace-only
+ */
+function isBlankRow(fields) {
+    if (!fields) return false;
+    const name = typeof fields['Name'] === 'string' ? fields['Name'].trim() : '';
+    const serial = typeof fields['Serial'] === 'string' ? fields['Serial'].trim() : '';
+    return name === '' && serial === '';
+}
+
 export function missingRequiredFields(record) {
     const fields = record?.fields;
     if (!fields) return ['Name', 'Type', 'Rarity'];
@@ -192,7 +209,7 @@ export function mapRecords(records) {
     const cards = records.map(mapRecord).filter(Boolean);
 
     const dropped = records
-        .filter(record => missingRequiredFields(record).length > 0)
+        .filter(record => missingRequiredFields(record).length > 0 && !isBlankRow(record?.fields))
         .map(record => ({
             id: record?.id ?? '',
             serial: record?.fields?.['Serial'] ? String(record.fields['Serial']).trim() : '',

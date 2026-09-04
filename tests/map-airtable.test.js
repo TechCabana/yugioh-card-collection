@@ -345,6 +345,50 @@ describe('mapRecords', () => {
             { id: 'recEmpty', serial: '', missing: ['Name', 'Type', 'Rarity'] }
         ]);
     });
+
+    // Airtable's UI creates a stray record with an empty fields object
+    // whenever "+" is clicked without typing anything. It is not a real
+    // card missing required fields, so it must not appear in dropped.
+    it('excludes a fully blank row (no Serial, no Name) from dropped', () => {
+        const blank = { id: 'recBlank', fields: {} };
+        const result = mapRecords([monsterRecord, blank]);
+
+        expect(result.cards).toHaveLength(1);
+        expect(result.dropped).toEqual([]);
+    });
+
+    // A blank Serial with a Name already typed is a row someone started
+    // filling in, not a stray blank one — must still be reported as dropped.
+    it('still drops a row with a real Name but blank Serial', () => {
+        const partial = { id: 'recPartial', fields: { Name: 'Dark Magician' } };
+        const result = mapRecords([partial]);
+
+        expect(result.dropped).toEqual([
+            { id: 'recPartial', serial: '', missing: ['Type', 'Rarity'] }
+        ]);
+    });
+
+    // Regression: a row with real data that fails required-field validation
+    // for an unrelated reason (bad Rarity) must still be reported.
+    it('still drops a row with a real Serial that fails required-field validation', () => {
+        const badRarity = {
+            id: 'recBadRarity',
+            fields: { ...monsterRecord.fields, Rarity: 'Not A Rarity' }
+        };
+        const result = mapRecords([badRarity]);
+
+        expect(result.dropped).toEqual([
+            { id: 'recBadRarity', serial: 'SDJ-017', missing: ['Rarity'] }
+        ]);
+    });
+
+    // Whitespace-only Serial and Name must count as blank too.
+    it('treats a whitespace-only Serial and Name as a blank row', () => {
+        const whitespace = { id: 'recWhitespace', fields: { Serial: '   ', Name: '  ' } };
+        const result = mapRecords([whitespace]);
+
+        expect(result.dropped).toEqual([]);
+    });
 });
 
 describe('missingRequiredFields', () => {

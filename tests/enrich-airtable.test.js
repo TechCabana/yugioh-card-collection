@@ -192,6 +192,63 @@ describe('collectEnrichedRows', () => {
         expect(result.rows).toHaveLength(0);
     });
 
+    // Airtable's UI creates a stray record with no fields at all whenever
+    // "+" is clicked without typing anything. That row is not a real card,
+    // so it must be ignored rather than reported as fatal, and must not
+    // block resolveSerialImpl from being called for the rest of the batch.
+    it('ignores a fully blank row (no Serial, no Name) instead of failing the run', async () => {
+        const records = [
+            { id: 'recBlank', fields: { IsProcessed: false } },
+            unprocessedRecord('rec1', 'SDJ-017')
+        ];
+
+        const result = await collectEnrichedRows(records, { resolveSerialImpl: alwaysResolves, selectOptions });
+
+        expect(result.skipped).toHaveLength(0);
+        expect(result.blocked).toHaveLength(0);
+        expect(result.rows).toHaveLength(1);
+        expect(result.rows[0].id).toBe('rec1');
+    });
+
+    // A blank Serial with a Name already typed is a row someone started
+    // filling in, not a stray blank one. It must still fail loudly.
+    it('still flags a row with a real Name but blank Serial', async () => {
+        const records = [{ id: 'recPartial', fields: { Name: 'Dark Magician', IsProcessed: false } }];
+
+        const result = await collectEnrichedRows(records, { resolveSerialImpl: alwaysResolves, selectOptions });
+
+        expect(result.skipped).toEqual([
+            { id: 'recPartial', serial: '', reason: 'Row has no Serial, so there is nothing to look up' }
+        ]);
+        expect(result.rows).toHaveLength(0);
+    });
+
+    // Whitespace-only Serial and Name must count as blank too, not slip
+    // through as "has a value" because the string is non-empty.
+    it('treats a whitespace-only Serial and Name as a blank row', async () => {
+        const records = [{ id: 'recWhitespace', fields: { Serial: '   ', Name: '  ', IsProcessed: false } }];
+
+        const result = await collectEnrichedRows(records, { resolveSerialImpl: alwaysResolves, selectOptions });
+
+        expect(result.skipped).toHaveLength(0);
+        expect(result.rows).toHaveLength(0);
+    });
+
+    // Regression: a real Serial that fails to resolve at YGOPRODeck must
+    // still fail loudly, untouched by the blank-row change.
+    it('still flags a row with a real but unresolvable Serial', async () => {
+        const records = [unprocessedRecord('recTypo', 'ZZZ-999')];
+        const resolveSerialImpl = () =>
+            Promise.resolve({ ok: false, reason: 'No YGOPRODeck match for set code "ZZZ-999"' });
+
+        const result = await collectEnrichedRows(records, { resolveSerialImpl, selectOptions });
+
+        expect(result.skipped).toEqual([
+            { serial: 'ZZZ-999', reason: 'No YGOPRODeck match for set code "ZZZ-999"' }
+        ]);
+        expect(result.rows).toHaveLength(0);
+    });
+
     it('processes a mix of ready, blocked and failing rows independently', async () => {
         const records = [
             unprocessedRecord('rec1', 'SDJ-017'),

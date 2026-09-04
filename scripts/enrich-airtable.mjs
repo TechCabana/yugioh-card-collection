@@ -144,6 +144,16 @@ export function normaliseSerial(serial) {
     return String(serial).trim();
 }
 
+/**
+ * Whether a record has a real Name typed, ignoring whitespace-only values.
+ *
+ * @param {object} [fields] - raw Airtable fields
+ * @returns {boolean} true when Name is a non-blank string
+ */
+function hasName(fields) {
+    return typeof fields?.Name === 'string' && fields.Name.trim() !== '';
+}
+
 export async function collectEnrichedRows(records, { resolveSerialImpl, selectOptions }) {
     const rows = [];
     const skipped = [];
@@ -156,6 +166,16 @@ export async function collectEnrichedRows(records, { resolveSerialImpl, selectOp
         const serial = normaliseSerial(record.fields?.Serial);
 
         if (serial === '') {
+            // A fully blank row (no Serial AND no Name) is the stray row
+            // Airtable's UI creates whenever "+" is clicked without typing
+            // anything. There is nothing to look up and nothing to report —
+            // it is not a row at all, so it must not fail the run. A row
+            // with a Name but no Serial yet is a real "needs attention"
+            // case and stays fatal.
+            if (!hasName(record.fields)) {
+                console.log(`Ignoring blank row ${record.id}: no Serial and no Name typed.`);
+                continue;
+            }
             skipped.push({ id: record.id, serial: '', reason: 'Row has no Serial, so there is nothing to look up' });
             continue;
         }
