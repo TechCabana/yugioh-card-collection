@@ -92,6 +92,19 @@ describe('matchesSearch', () => {
         expect(matchesSearch(card, 'lob-005')).toBe(true);
     });
 
+    // The suggestions dropdown offers a card by its passcode, so the filter
+    // behind it has to accept one too — otherwise the dropdown lists a card
+    // while the results below stay empty for the same query.
+    it('matches on passcode', () => {
+        expect(matchesSearch({ ...card, passcode: '46986414' }, '46986414')).toBe(true);
+        expect(matchesSearch({ ...card, passcode: '46986414' }, '4698')).toBe(true);
+    });
+
+    it('survives a card with no passcode, which is how an unmirrored card maps', () => {
+        expect(matchesSearch({ ...card, passcode: '' }, 'dark')).toBe(true);
+        expect(matchesSearch({ ...card, passcode: '' }, '46986414')).toBe(false);
+    });
+
     it('ignores surrounding whitespace', () => {
         expect(matchesSearch(card, '  magician  ')).toBe(true);
     });

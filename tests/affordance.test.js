@@ -37,6 +37,12 @@ const interactive_selectors = new Map([
     ['.facet-btn', 'button built in script.js renderFacetControls'],
     ['.facet-option', 'label wrapping the facet checkbox, script.js renderFacetOptions'],
     ['.chip', 'button built in script.js renderChips'],
+    // role="option" rather than a button, because that is what a listbox popup
+    // takes. The pointer promise is kept by the click handler in
+    // renderSuggestions, and the keyboard promise by the combobox on the input
+    // above it: Down highlights, Enter selects, and aria-activedescendant says
+    // which option Enter would take. So it is not a mouse-only affordance.
+    ['.search-suggestion', 'role="option" built in script.js renderSuggestions, click plus Enter via the combobox'],
     ['.clear-btn', 'button in index.html, clearFilters'],
     ['.refresh-btn', 'button in index.html, handler in script.js'],
     ['.view-btn', 'button in index.html, handler in script.js'],

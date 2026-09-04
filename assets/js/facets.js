@@ -71,6 +71,22 @@ export const FACETS = [
         labelFor: (value) => value
     },
     {
+        key: 'effect',
+        label: 'Has Effect',
+        // Monsters only. hasEffect is null for a spell or a trap — the concept
+        // does not exist there — and undefined on any card mapped before the
+        // field was published, so both are read the same way: no value, and so
+        // not a candidate for either option. Same statement the level facet
+        // makes about a Token, rather than inventing a "no" for a card the
+        // question was never asked of.
+        values: (card) =>
+            (typeof card?.hasEffect === 'boolean' ? [card.hasEffect ? 'effect' : 'normal'] : []),
+        labelFor: (value) => (value === 'effect' ? 'Effect' : 'Normal'),
+        // Effect first: it is the far commoner of the two, and a fixed order
+        // stops the pair swapping places as other filters change the counts.
+        compare: (a, b) => (a.value === 'effect' ? -1 : 1)
+    },
+    {
         key: 'level',
         label: 'Level',
         values: (card) => (typeof card?.level === 'number' ? [String(card.level)] : []),

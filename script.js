@@ -12,6 +12,7 @@ import {
 import { FACETS, facetOptions, selectionChips, pruneSelection, shouldReopenFacet } from './assets/js/facets.js';
 import { focusIndexAfterRemoval } from './assets/js/focus.js';
 import { debounce } from './assets/js/debounce.js';
+import { searchSuggestions, nextSuggestionIndex, NO_SUGGESTION } from './assets/js/suggest.js';
 import { isTextEntryTarget } from './assets/js/keyboard.js';
 import { setToggleState, setExclusiveToggle } from './assets/js/toggle.js';
 import {
@@ -780,20 +781,227 @@ function clearAllFilters() {
     activeFacets = {};
     searchQuery = '';
     document.getElementById('searchInput').value = '';
+    // The box is now empty, so anything the dropdown is still offering is a
+    // suggestion for a query that no longer exists.
+    closeSuggestions();
     applyFilters();
 }
 
 document.getElementById('clearFilters').addEventListener('click', clearAllFilters);
 
+/*
+ * Search suggestions.
+ *
+ * An ARIA combobox with a listbox popup: the input keeps focus throughout and
+ * points at the highlighted option with aria-activedescendant, rather than
+ * focus moving into the list. That is what lets Up and Down browse the
+ * suggestions while the typed text stays editable — moving real focus would
+ * take the caret out of the field the user is still writing in.
+ *
+ * Which cards produce a suggestion, and how the highlight wraps, both live in
+ * assets/js/suggest.js. What is left here is the DOM.
+ */
+
+/** Suggestions currently on offer, in the order they are rendered. */
+let suggestions = [];
+
+/** Index of the highlighted suggestion, or NO_SUGGESTION for none. */
+let activeSuggestion = NO_SUGGESTION;
+
+/** The id of one rendered option, referenced by aria-activedescendant. */
+const suggestionId = (index) => `search-suggestion-${index}`;
+
+/**
+ * Hide the dropdown and forget what it was offering.
+ *
+ * The typed text is deliberately left alone: Escape closes the suggestions,
+ * it does not undo the query they were suggested for.
+ *
+ * @returns {void}
+ */
+function closeSuggestions() {
+    const list = document.getElementById('searchSuggestions');
+    const input = document.getElementById('searchInput');
+
+    suggestions = [];
+    activeSuggestion = NO_SUGGESTION;
+
+    list.replaceChildren();
+    list.hidden = true;
+    input.setAttribute('aria-expanded', 'false');
+    // Removed rather than blanked: an aria-activedescendant pointing at an id
+    // that is no longer in the document is a dangling reference, and some
+    // screen readers keep announcing the option it used to name.
+    input.removeAttribute('aria-activedescendant');
+}
+
+/**
+ * Move the highlight onto one suggestion, or off all of them.
+ *
+ * @param {number} index - a suggestion index, or NO_SUGGESTION for none
+ * @returns {void}
+ */
+function highlightSuggestion(index) {
+    const list = document.getElementById('searchSuggestions');
+    const input = document.getElementById('searchInput');
+
+    activeSuggestion = index;
+
+    [...list.children].forEach((option, position) => {
+        const isActive = position === index;
+        option.classList.toggle('is-active', isActive);
+        option.setAttribute('aria-selected', String(isActive));
+    });
+
+    if (index === NO_SUGGESTION) {
+        input.removeAttribute('aria-activedescendant');
+        return;
+    }
+
+    input.setAttribute('aria-activedescendant', suggestionId(index));
+    // The list scrolls at 18rem, so a highlight walked past the fold has to be
+    // brought back into view or the arrow keys appear to stop working.
+    list.children[index]?.scrollIntoView({ block: 'nearest' });
+}
+
+/**
+ * Apply a suggestion as the search term.
+ *
+ * Focus goes back to the input rather than staying on the option that was
+ * clicked: the suggestion is a shortcut to a query, and the user's next move is
+ * either to keep typing or to clear it. Both happen in the field.
+ *
+ * @param {string} value - the term to search for
+ * @returns {void}
+ */
+function selectSuggestion(value) {
+    const input = document.getElementById('searchInput');
+
+    input.value = value;
+    searchQuery = value;
+
+    closeSuggestions();
+    input.focus();
+    applyFilters();
+}
+
+/**
+ * Rebuild the dropdown for whatever is in the search box.
+ *
+ * Built with createElement and textContent rather than innerHTML, for the same
+ * reason buildFacet() is: every value here is a card name out of Airtable, and
+ * an escaping mistake in a template string is one character wide.
+ *
+ * @returns {void}
+ */
+function renderSuggestions() {
+    const input = document.getElementById('searchInput');
+    const list = document.getElementById('searchSuggestions');
+
+    suggestions = searchSuggestions(allCards, input.value);
+
+    if (suggestions.length === 0) {
+        closeSuggestions();
+        return;
+    }
+
+    list.replaceChildren();
+
+    suggestions.forEach((suggestion, index) => {
+        const option = document.createElement('li');
+        option.className = 'search-suggestion';
+        option.id = suggestionId(index);
+        option.setAttribute('role', 'option');
+        option.setAttribute('aria-selected', 'false');
+
+        const name = document.createElement('span');
+        name.className = 'search-suggestion-name';
+        name.textContent = suggestion.label;
+        option.appendChild(name);
+
+        if (suggestion.detail !== '') {
+            const detail = document.createElement('span');
+            detail.className = 'search-suggestion-detail';
+            detail.textContent = suggestion.detail;
+            option.appendChild(detail);
+        }
+
+        // mousedown, not click, and prevented: pressing the pointer down on an
+        // option would otherwise blur the input, which closes the dropdown out
+        // from under the click that was about to land on it.
+        option.addEventListener('mousedown', (event) => event.preventDefault());
+        option.addEventListener('click', () => selectSuggestion(suggestion.value));
+
+        list.appendChild(option);
+    });
+
+    list.hidden = false;
+    input.setAttribute('aria-expanded', 'true');
+    // A fresh list starts with nothing highlighted, because the query the user
+    // typed is still what is being searched. Down reaches the first option.
+    highlightSuggestion(NO_SUGGESTION);
+}
+
 // A search term carried in on the URL has to show in the box it came from,
 // or the results look filtered by nothing.
 document.getElementById('searchInput').value = searchQuery;
 
-// Live search: debounced so filtering/re-render doesn't run on every keystroke.
+/*
+ * Live search and the suggestions, on one debounce.
+ *
+ * Deliberately the same 150ms timer for both: a second mechanism would let the
+ * dropdown and the results behind it describe different queries for a few
+ * frames, which is exactly the kind of disagreement a user reads as a bug.
+ */
 document.getElementById('searchInput').addEventListener('input', debounce((e) => {
     searchQuery = e.target.value;
+    renderSuggestions();
     applyFilters();
 }, 150));
+
+document.getElementById('searchInput').addEventListener('keydown', (event) => {
+    // Down with the dropdown closed reopens it, which is what makes the
+    // keyboard a way back in after Escape.
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault();
+        if (suggestions.length === 0) renderSuggestions();
+        if (suggestions.length === 0) return;
+
+        highlightSuggestion(
+            nextSuggestionIndex(activeSuggestion, event.key === 'ArrowDown' ? 1 : -1, suggestions.length)
+        );
+        return;
+    }
+
+    if (event.key === 'Enter') {
+        if (activeSuggestion === NO_SUGGESTION) return;
+        // Only swallowed when it is actually picking a suggestion, so Enter on
+        // a plain query still behaves the way it always did.
+        event.preventDefault();
+        selectSuggestion(suggestions[activeSuggestion].value);
+        return;
+    }
+
+    if (event.key === 'Escape' && !document.getElementById('searchSuggestions').hidden) {
+        // Stopped here so the page-wide Escape shortcut cannot also fire and
+        // clear every filter behind a dropdown the user only meant to dismiss.
+        event.preventDefault();
+        event.stopPropagation();
+        closeSuggestions();
+        return;
+    }
+
+    // Tab is leaving the field, so the dropdown has nothing left to act on.
+    if (event.key === 'Tab') closeSuggestions();
+});
+
+// Focus leaving the search box entirely — a click on the page, or Tab. An
+// option's own mousedown is prevented above, so picking one does not come
+// through here.
+document.querySelector('.search-box').addEventListener('focusout', (event) => {
+    if (event.currentTarget.contains(event.relatedTarget)) return;
+    closeSuggestions();
+});
 
 // View toggle
 document.querySelectorAll('.view-btn').forEach(btn => {

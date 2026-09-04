@@ -76,10 +76,16 @@ export function normaliseQuery(query) {
 }
 
 /**
- * Test whether a card matches a free-text search across name, type and serial.
+ * Test whether a card matches a free-text search across name, type, serial and
+ * passcode.
  *
  * An empty query matches everything, so callers can pass the raw input through
  * without branching.
+ *
+ * The passcode is searched because the suggestions dropdown offers cards by it
+ * (see suggest.js). Without it here, typing a passcode would list a card in the
+ * dropdown while the results behind it stayed empty — the two would disagree
+ * about what the same query means.
  *
  * @param {object} card - a card record
  * @param {string} query - raw or normalised query text
@@ -89,7 +95,7 @@ export function matchesSearch(card, query) {
     const term = normaliseQuery(query);
     if (term === '') return true;
 
-    const haystack = [card.name, card.cardType, card.type, card.serial]
+    const haystack = [card.name, card.cardType, card.type, card.serial, card.passcode]
         .filter(Boolean)
         .join(' ')
         .toLowerCase();

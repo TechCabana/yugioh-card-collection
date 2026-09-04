@@ -179,6 +179,14 @@ export function mapRecord(record) {
         // undefined rather than false, and undefined would serialise as a
         // missing key instead of a published "no".
         isFirstEdition: fields['IsFirstEdition'] === true,
+        // Effect vs Normal, published as its own field rather than only being
+        // folded into the cardType display string above, so it can be filtered
+        // on. Monsters only: a spell or a trap is neither an Effect nor a
+        // Normal card, so it publishes null — the same "does not apply to this
+        // card" statement summonType makes, not a false that would read as
+        // "this trap has no effect". Strict === true for the same reason as
+        // isFirstEdition: an unticked Airtable checkbox arrives as undefined.
+        hasEffect: fields['Type'] === 'Monster' ? fields['HasEffect'] === true : null,
         // No colour is published: assets/js/frames.js derives the card frame
         // from type, summonType and cardType at render time, so a card can
         // never carry a colour that disagrees with what it is.
