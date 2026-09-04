@@ -112,7 +112,7 @@ the test suite or the sync scripts.
 npm test
 ```
 
-29 files, 793 tests, all passing. If that is what you see, the checkout is
+32 files, 957 tests, all passing. If that is what you see, the checkout is
 good.
 
 ### 5. Configure Airtable
@@ -164,8 +164,10 @@ workflow. Use `--dry-run` before any command that writes.
 
 Adding a card: add a row in Airtable, fill in `Serial`, `Quantity`,
 `Condition` and, if you want it, `IsFirstEdition`, leave `IsProcessed`
-unticked, then run the pipeline or wait for the daily sweep at 06:00 UTC.
-Everything else is fetched.
+unticked, then run the pipeline (`gh workflow run process-data.yml`, or
+Actions → Process Data → Run workflow). There is no scheduled run — a daily
+poll was removed on 2026-08-28, since most days add no new rows and it was
+only burning Airtable API credits. Everything else is fetched.
 
 ### If it does not work
 
@@ -248,8 +250,8 @@ Airtable, and there is no credential anywhere in the shipped code.
 1. You add a row in Airtable and type a `Serial`, the set code printed on the
    card, for example `SDJ-017`. You also record `Quantity`, `Condition` and
    optionally `IsFirstEdition`. `IsProcessed` stays unticked.
-2. The pipeline runs, either from `gh workflow run process-data.yml` or from
-   the daily schedule at 06:00 UTC.
+2. The pipeline runs, triggered manually via `gh workflow run process-data.yml`
+   or from the Actions tab. There is no scheduled trigger.
 3. `scripts/enrich-airtable.mjs` collects every row with `IsProcessed`
    unticked and looks each set code up through `scripts/ygoprodeck-client.mjs`.
 4. `scripts/enrich-ygoprodeck.mjs` maps the API response onto Airtable
@@ -312,6 +314,7 @@ deduplicating them would quietly delete a printing from the collection.
   "serial": "SDP-015",
   "cardType": "Insect / Effect",
   "summonType": null,
+  "hasEffect": true,
   "attribute": "Earth",
   "atk": 450,
   "def": 600,
@@ -331,11 +334,12 @@ deduplicating them would quietly delete a printing from the collection.
 | `id` | string | The Airtable record id. |
 | `name` | string | Required. A record without it is dropped. |
 | `type` | string | Required. `monster`, `spell`, `trap` or `token`. |
-| `rarity` | string | Required. One of the keys in `RARITY_MAP` in `scripts/map-airtable.mjs`: common, rare, super, ultra, secret, ultimate, collector, ghost, prismatic, starlight. |
+| `rarity` | string | Required. One of the keys in `RARITY_MAP` in `scripts/map-airtable.mjs`: common, short_print, super_short_print, rare, super, ultra, secret, ultimate, collector, ghost, prismatic, starlight, quarter_century. |
 | `passcode` | string | Eight digits, stored as text because leading zeros are significant. Names the mirrored image file. |
 | `serial` | string | Set code, trimmed. `Serial` is a multiline field in Airtable, so a pasted value can carry an invisible trailing newline that URL-encodes to `%0A` and breaks the lookup. |
 | `cardType` | string | For example `Insect / Effect`. |
 | `summonType` | string or null | Fusion, Synchro, XYZ, Ritual, Link, or null. |
+| `hasEffect` | boolean or null | Whether a monster is an Effect monster. `null` for spells and traps, where the concept does not apply — not `false`. |
 | `attribute` | string or null | Earth, Fire, and so on. |
 | `atk`, `def`, `level` | number or null | Null for spells and traps. |
 | `image` | string or null | Path to the mirrored art, `assets/cards/<passcode>.jpg`. Null when the passcode is missing or malformed, which is what makes the renderer fall back to a plain type-coloured block. |
@@ -397,6 +401,9 @@ yugioh-card-collection/
 | `assets/js/focus.js` | Index arithmetic for restoring focus after a list is rebuilt in place |
 | `assets/js/toggle.js` | Sets a toggle's class and its `aria-pressed` together, so the announced state cannot drift from the visible one |
 | `assets/js/keyboard.js` | Detects text-entry targets so global shortcuts do not hijack typing |
+| `assets/js/sort.js` | Pure sort comparisons (name, ATK, DEF, level, rarity, set), both directions |
+| `assets/js/url-state.js` | Reads and writes view, density, sort, search and facet state to the URL query string |
+| `assets/js/suggest.js` | Search-suggestion matching (name, serial, passcode) and keyboard-nav index arithmetic for the combobox dropdown |
 | `scripts/ygoprodeck-client.mjs` | YGOPRODeck API client, `db.ygoprodeck.com/api/v7` |
 | `scripts/enrich-ygoprodeck.mjs` | Pure mapping from a YGOPRODeck response to Airtable fields |
 | `scripts/enrich-airtable.mjs` | Resolves unprocessed rows and PATCHes them back |
@@ -405,7 +412,7 @@ yugioh-card-collection/
 | `scripts/mirror-images.mjs` | Downloads card art into `assets/cards/`, skipping anything already mirrored |
 | `scripts/make-icons.mjs` | Generates the favicon set from a single source image |
 | `scripts/pipeline-report.mjs` | Turns the enrich and sync reports into the message a failed run prints, naming the real cause |
-| `.github/workflows/process-data.yml` | Enrich, sync, commit and deploy. Manual trigger plus a daily cron. |
+| `.github/workflows/process-data.yml` | Enrich, sync, commit and deploy. Manual trigger only (`workflow_dispatch`) — no schedule. |
 | `.github/workflows/pages.yml` | Pages deploy on push to `main` |
 | `.github/workflows/ci.yml` | Test gate on pull requests |
 
@@ -442,6 +449,9 @@ rather than just the pass/fail line on the PR itself.
 | `toggle.test.js` | The toggle helper, against a DOM-free stub |
 | `typography.test.js` | The font is committed and self-hosted, the preload matches the @font-face, and nothing sets type outside the scale |
 | `view.test.js` | Which view is visible, given the selected view and the load state |
+| `sort.test.js` | Sort comparisons, both directions, including a card the field does not apply to sorting last regardless of direction |
+| `url-state.test.js` | View, density, sort, search and facet state round-tripping through the URL query string |
+| `suggest.test.js` | Search-suggestion matching and keyboard-nav wrap-around, including that every suggestion is itself a term the search can match |
 | `debounce.test.js` | Timer behaviour of the search debounce |
 | `keyboard.test.js` | Text-entry target detection |
 | `facets.test.js` | Facet definitions, the exclude-own-facet counting rule, and menu counts agreeing with what filtering returns |
@@ -469,8 +479,7 @@ pulled out of the DOM handlers and out of the network calls, which is why
 functions that take data and return data. The suite runs without a browser
 and without a network.
 
-Current state: 29 files, 793 tests, all passing, verified on Node 24.16.0
-the same session this README was rewritten.
+Current state: 32 files, 957 tests, all passing, verified on Node 24.16.0.
 
 What the tests do not cover: the browser wiring in `script.js`, the CSS, and
 the real Airtable and YGOPRODeck endpoints. Those are exercised by running
@@ -495,7 +504,7 @@ work lands on `main` through a pull request.
 ### Licence
 
 Released under the MIT licence. The full text is in [LICENSE](LICENSE), and
-it covers the code in this repository only: the HTML, CSS, JavaScript and
+it covers **the code in this repository only**: the HTML, CSS, JavaScript and
 the Node scripts. It does not and cannot grant any rights over the card
 artwork or the Yu-Gi-Oh! name, which belong to their rights holders. See the
 credits below.
@@ -512,9 +521,9 @@ MIT applies from this commit onward.
 - Card data and images come from [YGOPRODeck](https://ygoprodeck.com/).
   Images are mirrored at sync time rather than hotlinked per page view, at
   their request.
-- *Yu-Gi-Oh!* and all card names, artwork and related marks are trademarks
-  of Konami. This is an unaffiliated personal project with no endorsement
-  from or association with Konami.
+- *Yu-Gi-Oh!* and all card names, artwork and related marks are trademarks of
+  Konami. This is an unaffiliated personal project with no endorsement from
+  or association with Konami.
 - The typeface is [Instrument Sans](https://github.com/Instrument/instrument-sans),
   self-hosted in `assets/fonts/` under the SIL Open Font License 1.1. Its
   licence travels with the file, in `assets/fonts/OFL.txt`.
