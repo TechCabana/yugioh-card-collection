@@ -30,6 +30,7 @@ const TYPE_MAP = {
 const RARITY_MAP = {
     'Common': 'common',
     'Short Print': 'short_print',
+    'Super Short Print': 'super_short_print',
     'Rare': 'rare',
     'Super Rare': 'super',
     'Ultra Rare': 'ultra',
@@ -38,7 +39,8 @@ const RARITY_MAP = {
     "Collector's Rare": 'collector',
     'Ghost Rare': 'ghost',
     'Prismatic Secret Rare': 'prismatic',
-    'Starlight Rare': 'starlight'
+    'Starlight Rare': 'starlight',
+    'Quarter Century Secret Rare': 'quarter_century'
 };
 
 /**

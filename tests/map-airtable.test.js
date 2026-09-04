@@ -513,8 +513,9 @@ describe('rarity vocabulary stays in step', () => {
     // Three places define rarity: the Airtable options, RARITY_ORDER, and
     // RARITY_LABELS. Drift between them makes cards vanish under a filter.
     const airtableRarities = [
-        'common', 'short_print', 'rare', 'super', 'ultra', 'secret',
-        'ultimate', 'collector', 'ghost', 'prismatic', 'starlight'
+        'common', 'short_print', 'super_short_print', 'rare', 'super', 'ultra',
+        'secret', 'ultimate', 'collector', 'ghost', 'prismatic', 'starlight',
+        'quarter_century'
     ];
 
     it('RARITY_ORDER covers every rarity the sync can emit', () => {
@@ -531,7 +532,28 @@ describe('rarity vocabulary stays in step', () => {
 
     it('keeps common and short print below "rare or better"', () => {
         expect(RARITY_ORDER[0]).toBe('common');
-        expect(RARITY_ORDER.indexOf('short_print')).toBe(1);
-        expect(RARITY_ORDER.indexOf('rare')).toBe(2);
+        expect(RARITY_ORDER.indexOf('short_print')).toBeLessThan(RARITY_ORDER.indexOf('rare'));
+        expect(RARITY_ORDER.indexOf('super_short_print')).toBeLessThan(RARITY_ORDER.indexOf('rare'));
+    });
+
+    // Regression: an Airtable select option added after the fact (a new
+    // Rarity value that passes enrich-airtable.mjs's live-options check) must
+    // still map here, or the row silently vanishes from data/cards.json even
+    // though enrich reported it clean. Caught 2026-09-04 when "Quarter Century
+    // Secret Rare" and "Super Short Print" were added in Airtable but not to
+    // this file's own RARITY_MAP.
+    it('maps every current Airtable Rarity option to a card, not null', () => {
+        const rarityDisplayValues = [
+            'Common', 'Short Print', 'Super Short Print', 'Rare', 'Super Rare',
+            'Ultra Rare', 'Secret Rare', 'Ultimate Rare', "Collector's Rare",
+            'Ghost Rare', 'Prismatic Secret Rare', 'Starlight Rare',
+            'Quarter Century Secret Rare'
+        ];
+
+        for (const Rarity of rarityDisplayValues) {
+            const card = mapRecord({ id: 'r', fields: { Name: 'X', Type: 'Monster', Rarity } });
+            expect(card, `Rarity "${Rarity}" was dropped instead of mapped`).not.toBeNull();
+            expect(RARITY_ORDER).toContain(card.rarity);
+        }
     });
 });

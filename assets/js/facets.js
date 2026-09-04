@@ -21,6 +21,7 @@ import { RARITY_ORDER } from './filters.js';
 const RARITY_LABELS = {
     common: 'Common',
     short_print: 'Short Print',
+    super_short_print: 'Super Short Print',
     rare: 'Rare',
     super: 'Super Rare',
     ultra: 'Ultra Rare',
@@ -29,7 +30,8 @@ const RARITY_LABELS = {
     prismatic: 'Prismatic Secret Rare',
     collector: "Collector's Rare",
     ghost: 'Ghost Rare',
-    starlight: 'Starlight Rare'
+    starlight: 'Starlight Rare',
+    quarter_century: 'Quarter Century Secret Rare'
 };
 
 /** Title-case a stored key such as `monster`. */
