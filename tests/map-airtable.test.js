@@ -207,6 +207,90 @@ describe('mapRecord', () => {
         });
     });
 
+    /*
+     * Effect vs Normal, published as its own field.
+     *
+     * It was already in the data — enrich-ygoprodeck.mjs writes HasEffect — but
+     * only ever reached the site folded into the cardType display string, where
+     * nothing can filter on it.
+     *
+     * Only monsters have the concept, so the interesting case is what a spell
+     * publishes. null, the same "does not apply" summonType uses, rather than
+     * false: a trap that "has no effect" is a claim about the card, and it is
+     * not one this field is making.
+     */
+    describe('hasEffect', () => {
+        it('publishes true for an effect monster', () => {
+            expect(mapRecord(monsterRecord).hasEffect).toBe(true);
+        });
+
+        it('publishes false for a normal monster', () => {
+            const card = mapRecord({
+                id: 'r',
+                fields: { ...monsterRecord.fields, HasEffect: false }
+            });
+
+            expect(card.hasEffect).toBe(false);
+        });
+
+        // Airtable omits an unticked checkbox rather than sending false, so a
+        // monster row that predates the field maps to a Normal monster — which
+        // is what buildCardTypeLabel has always called it.
+        it('publishes false for a monster whose checkbox is absent', () => {
+            const fields = { ...monsterRecord.fields };
+            delete fields.HasEffect;
+
+            expect(mapRecord({ id: 'r', fields }).hasEffect).toBe(false);
+            expect(buildCardTypeLabel(fields)).toContain('Normal');
+        });
+
+        // Same strictness as isFirstEdition: the field is a claim about the
+        // card, so only a real boolean true counts.
+        it('publishes false for a truthy value that is not literally true', () => {
+            for (const value of ['true', 1, 'yes', {}]) {
+                const card = mapRecord({
+                    id: 'r',
+                    fields: { ...monsterRecord.fields, HasEffect: value }
+                });
+
+                expect(card.hasEffect).toBe(false);
+            }
+        });
+
+        it('publishes null for a spell, which has no such concept', () => {
+            expect(mapRecord(spellRecord).hasEffect).toBeNull();
+        });
+
+        // Not just falsy: a stray HasEffect on a spell row must not publish as
+        // true, or the facet would offer "Effect" for a card that has no
+        // Effect/Normal distinction at all.
+        it('publishes null for a spell even when HasEffect is set', () => {
+            const card = mapRecord({
+                id: 'r',
+                fields: { ...spellRecord.fields, HasEffect: true }
+            });
+
+            expect(card.hasEffect).toBeNull();
+        });
+
+        it('is always present, so the key never goes missing from the JSON', () => {
+            expect(mapRecord(monsterRecord)).toHaveProperty('hasEffect');
+            expect(mapRecord(spellRecord)).toHaveProperty('hasEffect');
+        });
+
+        it('is not required, so a row without it is never dropped', () => {
+            const fields = { ...monsterRecord.fields };
+            delete fields.HasEffect;
+
+            expect(missingRequiredFields({ id: 'r', fields })).toEqual([]);
+            expect(mapRecord({ id: 'r', fields })).not.toBeNull();
+        });
+
+        it('is not a private field', () => {
+            expect(PRIVATE_FIELDS.map(f => f.toLowerCase())).not.toContain('haseffect');
+        });
+    });
+
     it('never carries a private field through', () => {
         const card = mapRecord(monsterRecord);
         PRIVATE_FIELDS.forEach(field => {
@@ -344,6 +428,50 @@ describe('mapRecords', () => {
         expect(result.dropped).toEqual([
             { id: 'recEmpty', serial: '', missing: ['Name', 'Type', 'Rarity'] }
         ]);
+    });
+
+    // Airtable's UI creates a stray record with an empty fields object
+    // whenever "+" is clicked without typing anything. It is not a real
+    // card missing required fields, so it must not appear in dropped.
+    it('excludes a fully blank row (no Serial, no Name) from dropped', () => {
+        const blank = { id: 'recBlank', fields: {} };
+        const result = mapRecords([monsterRecord, blank]);
+
+        expect(result.cards).toHaveLength(1);
+        expect(result.dropped).toEqual([]);
+    });
+
+    // A blank Serial with a Name already typed is a row someone started
+    // filling in, not a stray blank one — must still be reported as dropped.
+    it('still drops a row with a real Name but blank Serial', () => {
+        const partial = { id: 'recPartial', fields: { Name: 'Dark Magician' } };
+        const result = mapRecords([partial]);
+
+        expect(result.dropped).toEqual([
+            { id: 'recPartial', serial: '', missing: ['Type', 'Rarity'] }
+        ]);
+    });
+
+    // Regression: a row with real data that fails required-field validation
+    // for an unrelated reason (bad Rarity) must still be reported.
+    it('still drops a row with a real Serial that fails required-field validation', () => {
+        const badRarity = {
+            id: 'recBadRarity',
+            fields: { ...monsterRecord.fields, Rarity: 'Not A Rarity' }
+        };
+        const result = mapRecords([badRarity]);
+
+        expect(result.dropped).toEqual([
+            { id: 'recBadRarity', serial: 'SDJ-017', missing: ['Rarity'] }
+        ]);
+    });
+
+    // Whitespace-only Serial and Name must count as blank too.
+    it('treats a whitespace-only Serial and Name as a blank row', () => {
+        const whitespace = { id: 'recWhitespace', fields: { Serial: '   ', Name: '  ' } };
+        const result = mapRecords([whitespace]);
+
+        expect(result.dropped).toEqual([]);
     });
 });
 

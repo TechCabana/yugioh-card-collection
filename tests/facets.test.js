@@ -83,6 +83,45 @@ describe('facet definitions', () => {
             expect(() => facet.values({})).not.toThrow();
         }
     });
+
+    /*
+     * Has Effect. Monsters only, and the "not applicable" case is the whole
+     * point: hasEffect is null for a spell or a trap, and undefined on every
+     * card mapped before the field was published. Both have to read as "no
+     * value" rather than as "no effect", or the facet would offer Normal for
+     * a Trap and for the entire pre-sync collection.
+     */
+    describe('the effect facet', () => {
+        it('reads a monster as Effect or Normal', () => {
+            expect(FACETS_BY_KEY.effect.values(card({ hasEffect: true }))).toEqual(['effect']);
+            expect(FACETS_BY_KEY.effect.values(card({ hasEffect: false }))).toEqual(['normal']);
+        });
+
+        it('offers no value for a card the concept does not apply to', () => {
+            expect(FACETS_BY_KEY.effect.values(card({ hasEffect: null }))).toEqual([]);
+        });
+
+        // The live data/cards.json predates the field, so every card in it
+        // reaches this function with hasEffect undefined. It must behave
+        // exactly like the null case rather than falling through to 'normal'.
+        it('offers no value for a card published before the field existed', () => {
+            expect(FACETS_BY_KEY.effect.values(card({}))).toEqual([]);
+            expect(FACETS_BY_KEY.effect.values(card({ hasEffect: undefined }))).toEqual([]);
+        });
+
+        // Only a real boolean. A truthy string would otherwise be read as an
+        // effect monster by a facet whose source field is a checkbox.
+        it('offers no value for a non-boolean', () => {
+            for (const value of ['true', 1, {}]) {
+                expect(FACETS_BY_KEY.effect.values(card({ hasEffect: value }))).toEqual([]);
+            }
+        });
+
+        it('labels both values the way a card is described', () => {
+            expect(facetValueLabel('effect', 'effect')).toBe('Effect');
+            expect(facetValueLabel('effect', 'normal')).toBe('Normal');
+        });
+    });
 });
 
 describe('facetValueLabel', () => {
@@ -179,6 +218,33 @@ describe('facetOptions', () => {
         // reshuffle under the cursor as boxes are ticked.
         expect(levels.map((option) => option.value)).toEqual(['2', '3', '4']);
         expect(levels.find((option) => option.value === '3').count).toBe(0);
+    });
+
+    /*
+     * The live data/cards.json has no hasEffect on any card yet — the field
+     * only reaches it on the next Airtable sync. buildFacetBar() in script.js
+     * skips a facet whose facetOptions() comes back empty, so this is what
+     * keeps the Has Effect button off the toolbar until there is data behind
+     * it, rather than rendering an empty menu.
+     */
+    it('returns nothing for a facet no card carries a value for', () => {
+        const preSync = collection.map(({ hasEffect, ...rest }) => rest);
+        expect(facetOptions(preSync, 'effect')).toEqual([]);
+    });
+
+    it('offers both values once the data carries them, effect first', () => {
+        const mixed = [
+            card({ hasEffect: false }),
+            card({ hasEffect: true }),
+            card({ hasEffect: true }),
+            // A spell: no value either way, so it counts towards neither.
+            card({ type: 'spell', hasEffect: null })
+        ];
+
+        expect(facetOptions(mixed, 'effect')).toEqual([
+            { value: 'effect', label: 'Effect', count: 2 },
+            { value: 'normal', label: 'Normal', count: 1 }
+        ]);
     });
 
     it('applies the search predicate to the counts', () => {

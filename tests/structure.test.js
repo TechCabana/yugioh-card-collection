@@ -300,6 +300,86 @@ describe('the card detail dialog', () => {
     });
 });
 
+/**
+ * The search suggestions combobox.
+ *
+ * There is no DOM environment here to open the dropdown in, so what these
+ * guard is that the ARIA combobox pattern is the one being used — the roles,
+ * the ownership and the activedescendant that keep focus in the input. The
+ * matching and the wrap-around are covered directly in suggest.test.js; this is
+ * the part only a screen reader would otherwise notice going missing.
+ */
+describe('the search suggestions combobox', () => {
+    const input = indexHtml.match(/<input[^>]*id="searchInput"[^>]*>/)?.[0] ?? '';
+
+    it('finds the search field, so the assertions below are not vacuous', () => {
+        expect(input).not.toBe('');
+    });
+
+    it('marks the field as a combobox owning the suggestion list', () => {
+        expect(input).toMatch(/role="combobox"/);
+        expect(input).toMatch(/aria-controls="searchSuggestions"/);
+        expect(input).toMatch(/aria-autocomplete="list"/);
+    });
+
+    // Served closed, and served saying so: a combobox with no aria-expanded is
+    // announced as a plain text field until the first keystroke.
+    it('ships closed and says so', () => {
+        expect(input).toMatch(/aria-expanded="false"/);
+        expect(indexHtml).toMatch(/id="searchSuggestions"[^>]*hidden/);
+    });
+
+    // The browser's own history dropdown would otherwise open over this one.
+    it('turns the browser autocomplete off', () => {
+        expect(input).toMatch(/autocomplete="off"/);
+    });
+
+    it('is a named listbox, shipped empty for script.js to fill', () => {
+        expect(indexHtml).toMatch(/<ul class="search-suggestions"[^>]*role="listbox"/);
+        expect(indexHtml).toMatch(/aria-label="Search suggestions"/);
+        expect(indexHtml).toMatch(/id="searchSuggestions"[^>]*><\/ul>/);
+    });
+
+    it('gives every rendered option a role and a selected state', () => {
+        expect(scriptJs).toMatch(/option\.setAttribute\('role', 'option'\)/);
+        expect(scriptJs).toMatch(/option\.setAttribute\('aria-selected'/);
+    });
+
+    // Focus stays in the field being typed in; the highlight is a pointer, not
+    // a tab stop. Moving real focus into the list would take the caret out of
+    // the query the user is still writing.
+    it('points at the highlight rather than moving focus into the list', () => {
+        expect(scriptJs).toMatch(/setAttribute\('aria-activedescendant'/);
+        expect(scriptJs).toMatch(/removeAttribute\('aria-activedescendant'\)/);
+        expect(scriptJs).not.toMatch(/option\.focus\(\)/);
+    });
+
+    it('is keyboard operable in both directions and answers Enter', () => {
+        for (const key of ['ArrowDown', 'ArrowUp', 'Enter', 'Escape']) {
+            expect(scriptJs).toContain(`'${key}'`);
+        }
+        expect(scriptJs).toMatch(/nextSuggestionIndex\(/);
+    });
+
+    // Escape dismisses the dropdown; it must not fall through to the page-wide
+    // shortcut that clears every filter, and it must not clear the typed text.
+    it('closes on Escape without touching the query or the filters', () => {
+        const handler = scriptJs.match(/if \(event\.key === 'Escape'[\s\S]*?\n    \}/)?.[0] ?? '';
+
+        expect(handler).toContain('stopPropagation()');
+        expect(handler).toContain('closeSuggestions()');
+        expect(handler).not.toContain('clearAllFilters');
+        expect(handler).not.toContain('input.value');
+    });
+
+    // One debounce for the dropdown and the results, so the two cannot describe
+    // different queries for a few frames.
+    it('reuses the one debounced search handler rather than adding a second', () => {
+        expect(scriptJs).toMatch(/addEventListener\('input', debounce\(/);
+        expect(scriptJs.match(/debounce\(/g) ?? []).toHaveLength(1);
+    });
+});
+
 describe('visually-hidden', () => {
     it('keeps hidden text in the accessibility tree', () => {
         const rule = stylesCss.match(/\.visually-hidden\s*{([^}]*)}/);

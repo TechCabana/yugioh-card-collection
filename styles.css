@@ -255,7 +255,9 @@ input {
     flex-wrap: wrap;
 }
 
+/* The suggestion list is positioned against this, so it is the containing block. */
 .search-box {
+    position: relative;
     flex: 1;
     min-width: 250px;
 }
@@ -279,6 +281,74 @@ input {
 
 .search-box input::placeholder {
     color: var(--text-muted);
+}
+
+/*
+ * Search suggestions.
+ *
+ * Deliberately the same surface, hairline and shadow as a facet panel: both are
+ * a menu hanging off a control in the same toolbar, and giving one of them its
+ * own treatment would say they were different kinds of thing.
+ *
+ * z-index above the facet panels' 20 — this one is anchored to the leftmost
+ * control on the row, so a facet panel opening beside it must not land on top.
+ */
+.search-suggestions {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    z-index: 30;
+    max-height: 18rem;
+    overflow-y: auto;
+    margin: 0;
+    padding: var(--space-1);
+    list-style: none;
+    background: var(--surface-2);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-2);
+}
+
+.search-suggestion {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.4rem 0.5rem;
+    border-radius: var(--radius-xs);
+    cursor: pointer;
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+}
+
+/*
+ * The highlight, moved by the arrow keys and mirrored by aria-activedescendant.
+ * Focus stays in the input throughout, so there is no focus ring to lean on
+ * here — this wash is the only thing telling a sighted user what Enter will do.
+ */
+.search-suggestion.is-active {
+    background: var(--accent-wash);
+    color: var(--text-primary);
+}
+
+.search-suggestion:hover {
+    background: var(--surface-3);
+    color: var(--text-primary);
+}
+
+.search-suggestion-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* The serial, to tell two printings of the same card apart. */
+.search-suggestion-detail {
+    color: var(--text-muted);
+    font-size: var(--text-2xs);
+    font-variant-numeric: tabular-nums;
 }
 
 /*

@@ -92,7 +92,28 @@
               typed, and it is not reliably announced as the field's name.
             -->
             <label class="visually-hidden" for="searchInput">Search the collection</label>
-            <input type="text" id="searchInput" placeholder="Search by name, type, or serial…">
+            <!--
+              A combobox, per the ARIA pattern: the input owns the listbox
+              below, says whether it is open, and points at the highlighted
+              option with aria-activedescendant, so focus never leaves the
+              field the user is typing in.
+
+              autocomplete="off" because the browser's own history dropdown
+              would otherwise open over this one, and aria-autocomplete="list"
+              says the suggestions narrow as you type rather than completing
+              the text inline — which is what script.js actually does.
+            -->
+            <input type="text" id="searchInput" placeholder="Search by name, serial, or passcode…"
+                   role="combobox" aria-expanded="false" aria-controls="searchSuggestions"
+                   aria-autocomplete="list" autocomplete="off">
+
+            <!--
+              Suggestions. Built from the collection by assets/js/suggest.js, so
+              this ships empty and hidden — an empty listbox is announced as a
+              list of nothing rather than as absent.
+            -->
+            <ul class="search-suggestions" id="searchSuggestions" role="listbox"
+                aria-label="Search suggestions" hidden></ul>
         </div>
 
         <!--
